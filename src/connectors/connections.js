@@ -3,6 +3,7 @@ import { initializeConnector } from '@web3-react/core'
 import { MetaMask } from '@web3-react/metamask'
 import { Network } from '@web3-react/network'
 import { WalletConnect } from '@web3-react/walletconnect'
+// import {Torus} from '@web3-react/torus-connector'
 import { CHAINS } from './chains'
 
 export const ConnectionType = {
