@@ -70,7 +70,9 @@ export const fetchPlayers = createAsyncThunk(
 
 export const newPlayer = createAsyncThunk(
   "newPlayer",
-  async (contract, playerId) => {
+  async (info) => {
+    const { playerId, contract } = info;
+    console.log(contract, playerId);
     const newPlayer = await Promise.all([
       contract.methods.tokenURI(playerId).call(),
       contract.methods.ownerOf(playerId).call(),

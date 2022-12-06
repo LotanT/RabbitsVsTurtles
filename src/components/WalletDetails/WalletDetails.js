@@ -134,7 +134,7 @@ const WalletDetails = ({balance, setIsWalletDetails, setIsDarkMode, isDarkMode, 
               />
             </svg>
           </div>
-        </div> : <div className="wallet-details-connect" onClick={()=>setActiveModal('connectModal')}>connect</div>}
+        </div> : <div className="wallet-details-connect" onClick={()=>setActiveModal('connectModal')}>Connect Wallet</div>}
       </div>
       <div className="wallet-details-balance">
         <div className="balance-matic">{accounts?.length ?`${balance} ${CHAINS[chainId].coin}`: balance?<div><div className="loader-small"></div> {CHAINS[chainId].coin} </div>:<div></div>}</div>

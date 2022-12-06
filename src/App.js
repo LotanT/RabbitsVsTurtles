@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllInfo, updateInfo } from "./features/infoSlice";
@@ -44,7 +44,6 @@ function App() {
   const [mintInfo, setMintInfo] = useState({ cost: "0", totalSupply: '0' });
   const { provider, accounts, chainId, isActive } = useWeb3React();
   const [isAudio, setIsAudio] = useState(false)
-  const location = useLocation();
   const info = useSelector(selectAllInfo);
   const dispatch = useDispatch()
   const emitter = useRef()
@@ -182,12 +181,11 @@ function App() {
       fromBlock: 'latest',
     };
     if(emitter.current) emitter.current.removeAllListeners('data');
-    console.log('hi');
     emitter.current = info.contractWS.events.allEvents(options).on("data", (event) => eventAction(event));
     return ()=>{
       emitter.current.removeAllListeners('data');
     }
-  },[isNotification])
+  },[isNotification, chainId])
 
   const eventAction = async (event) => {
     let currBlock = await info.web3.eth.getBlockNumber()
@@ -196,8 +194,8 @@ function App() {
         }
         switch (event.event) {
           case 'Attacked':
-              store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues._eaterId}))
-              store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues._eatenId}))
+              await store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues._eaterId}))
+              await store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues._eatenId}))
               dispatch(addEvent({time: Date.now(), txt: `Player number #${event.returnValues._eaterId} attacked player number #${event.returnValues._eatenId} ! 🤯 `}))
               if(isNotification){
                 toast.info(`Player number #${event.returnValues._eaterId} attacked player number #${event.returnValues._eatenId} ! 🤯 `,{ autoClose: 3000 })
@@ -205,40 +203,41 @@ function App() {
               break;
           case 'Transfer':
             if(event.returnValues.from === "0x0000000000000000000000000000000000000000"){
-              store.dispatch(newPlayer({contract: info.contract, playerId: event.returnValues.tokenId}))
+              await store.dispatch(newPlayer({contract: info.contract, playerId: event.returnValues.tokenId}))
               dispatch(addEvent({time: Date.now(), txt: `Player number #${event.returnValues.tokenId} just joined the game! 🥳`}))
               getCost();
               getTotal()
-              console.log(isNotification);
-              if(isNotification) toast.info(`Player number #${event.returnValues.tokenId} just joined the game! 🥳`,{ autoClose: 3000 })
-            }else{
-              store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues.tokenId}))
+              if(isNotification){
+               toast.info(`Player number #${event.returnValues.tokenId} just joined the game! 🥳`,{ autoClose: 3000 })
+              }
+          }else{
+              await store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues.tokenId}))
               dispatch(addEvent({time: Date.now(), txt: `User ${event.returnValues.from} transferred player number #${event.returnValues.tokenId} to user ${event.returnValues.to}! 🤝`}))
               if(isNotification) toast.info(`User ${event.returnValues.from} transferred player number #${event.returnValues.tokenId} to user ${event.returnValues.to}! 🤝`,{ autoClose: 3000 })
             }
             break;
           case 'AttackIncreased':
-              store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues._playerId}))
+              await store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues._playerId}))
               dispatch(addEvent({time: Date.now(), txt: `Player number #${event.returnValues._playerId} increased attack! 💪`}))
               if(isNotification) toast.info(`Player number #${event.returnValues._playerId} increased attack! 💪`,{ autoClose: 3000 })
               break;
           case 'ArmorIncreased':
-              store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues._playerId}))
+              await store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues._playerId}))
               dispatch(addEvent({time: Date.now(), txt: `Player number #${event.returnValues._playerId} increased armor! 🛡️`}))
               if(isNotification) toast.info(`Player number #${event.returnValues._playerId} increased armor! 🛡️`)
               break;
           case 'DefenseIncreased':
-              store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues._playerId}))
+              await store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues._playerId}))
               dispatch(addEvent({time: Date.now(), txt: `Player number #${event.returnValues._playerId} increased defense! 🦾`}))
               if(isNotification) toast.info(`Player number #${event.returnValues._playerId} increased defense! 🦾`,{ autoClose: 3000 })
               break;
           case 'StaminaIncreased':
-              store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues._playerId}))
+              await store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues._playerId}))
               dispatch(addEvent({time: Date.now(), txt: `Player number #${event.returnValues._playerId} increased stamina! 🏋️‍♂️`}))
               if(isNotification) toast.info(`Player number #${event.returnValues._playerId} increased stamina! 🏋️‍♂️`,{ autoClose: 3000 })
               break;
           case 'Revived':
-              store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues._playerId}))
+              await store.dispatch(updatePlayer({contract: info.contract, playerId: event.returnValues._playerId}))
               dispatch(addEvent({time: Date.now(), txt: `Player number #${event.returnValues._playerId} revived back into the game! 😍 😇`}))
               if(isNotification) toast.info(`Player number #${event.returnValues._playerId} revived back into the game! 😍 😇`,{ autoClose: 3000 })
               break;
