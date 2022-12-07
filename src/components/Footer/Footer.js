@@ -4,10 +4,12 @@ import "./footer.css";
 import goldFrame from "../../assets/pic/header-account.png";
 import NetworksModal from "../NetworksModal/NetworksModal";
 import potionBlueBtn from "../../assets/pic/potion-blue-btn.png";
-import potionPinkBtn from "../../assets/pic/potion-pink-btn.png";
-import shieldDiamondBtn from "../../assets/pic/shield-diamond-btn.png";
-import shieldSworddBtn from "../../assets/pic/shield-sword-btn.png";
-import emptyBtn from "../../assets/pic/empty-btn.png";
+import hatBtn from "../../assets/pic/hat-shop-btn.png";
+import crownBtn from "../../assets/pic/crown-shop-btn.png";
+import keyBtn from "../../assets/pic/key-shop-btn.png";
+import bookBtn from "../../assets/pic/book-shop-btn.png";
+import carrotBtn from "../../assets/pic/carrot-shop-btn.png";
+import armorBtn from "../../assets/pic/shield-shop-btn.png";
 import { Link, useLocation } from "react-router-dom";
 import MyPlayers from "../MyPlayers/MyPlayers";
 import muteBtn from "../../assets/pic/sound-mute.png";
@@ -46,19 +48,25 @@ const Footer = ({ isDarkMode, isAudio, setIsAudio }) => {
       <div className="footer-center">
         <img alt="" src={goldFrame} />
         <div className="footer-links">
-          <Link to="/shop">
-            <img alt="" src={emptyBtn} />
+          <Link to="/shop/hats">
+            <img alt="" src={hatBtn} />
           </Link>
-          <Link to="/shop">
-            <img alt="" src={shieldSworddBtn} />
+          <Link to="/shop/crowns">
+            <img alt="" src={crownBtn} />
           </Link>
-          <Link to="/shop">
-            <img alt="" src={shieldDiamondBtn} />
+          <Link to="/shop/books">
+            <img alt="" src={bookBtn} />
           </Link>
-          <Link to="/shop">
-            <img alt="" src={potionPinkBtn} />
+          <Link to="/shop/shields">
+            <img alt="" src={armorBtn} />
           </Link>
-          <Link to="/shop">
+          <Link to="/shop/keys">
+            <img alt="" src={keyBtn} />
+          </Link>
+          <Link to="/shop/veggies">
+            <img alt="" src={carrotBtn} />
+          </Link>
+          <Link to="/shop/regular">
             <img alt="" src={potionBlueBtn} />
           </Link>
         </div>

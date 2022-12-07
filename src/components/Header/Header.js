@@ -76,19 +76,21 @@ const Header = ({ setActiveModal, isDarkMode, setIsDarkMode, balance, setIsNotif
   return (
     <div className="header" style={location.pathname === '/'? {display: 'none'} : {}}>
       <div className={openLinks? "header-links" : "header-links header-margin-top"} onClick={()=>setOpenLinks(!openLinks)}>
-        <div className="lightin-links" style={{zIndex: '1'}}><img alt="" src={diamondIcon} /></div>
-        <Link style={!openLinks?{top: '55px'}:{}} to="/mint">
-          <img alt="" src={lighting} className={getLightingStyle()}/>
-        </Link>
-        <Link style={!openLinks?{top: '100px'}:{}} to="/graveyard">
-          <img alt="" src={heart} />
-        </Link>
-        <Link style={!openLinks?{top: '145px'}:{}} to="/arena">
-          <img alt="" src={swords} />
-        </Link>
-        <Link style={!openLinks?{top: '190px'}:{}} to="/overview">
-          <img alt="" src={flags} />
-        </Link>
+        <div className="header-links-container">
+          <div className="lightin-links" style={{zIndex: '1'}}><img alt="" src={diamondIcon} /></div>
+          <Link style={!openLinks?{top: '45px', opacity: '1'}:{}} to="/mint">
+            <img alt="" src={lighting} className={getLightingStyle()}/>
+          </Link>
+          <Link style={!openLinks?{top: '90px', opacity: '1'}:{}} to="/graveyard">
+            <img alt="" src={heart} />
+          </Link>
+          <Link style={!openLinks?{top: '135px', opacity: '1'}:{}} to="/arena">
+            <img alt="" src={swords} />
+          </Link>
+          <Link style={!openLinks?{top: '180px', opacity: '1'}:{}} to="/overview">
+            <img alt="" src={flags} />
+          </Link>
+        </div>
       </div>
       <Link to="/map" className="header-logo" onClick={()=>{
         // if(isNotification)toast.info(`Player number #106 just joined the game! 🥳`)

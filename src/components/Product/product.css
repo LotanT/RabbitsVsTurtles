@@ -8,6 +8,7 @@
   align-items: center;
   color: #ffffff;
   aspect-ratio: 0.728/1;
+  justify-content: space-between;
 }
 
 .product-minus-btn {
@@ -36,23 +37,28 @@
 
 .product-header {
   font-weight: 700;
-  font-size: 1rem;
-  line-height: 19px;
-  margin-top: 14%;
+  font-size: 0.85rem;
+  margin-top: 11%;
 }
 
 .product-img {
-  margin-top: 7%;
   height: 35%;
 }
 .product-img img {
   height: 100%;
 }
 
+.product-desc{
+  font-weight: 500;
+  font-size: 0.7em;
+  color: #C0F8D9;
+  margin-top: 1%;
+}
+
 .product-price-container {
   position: relative;
-  margin-top: 7%;
   height: 17%;
+  margin-bottom: 15%;
 }
 .product-price-container img{
   height: 100%;
@@ -68,6 +74,7 @@
   justify-content: center;
   gap: 2px;
   height: 54%;
+  font-size: 0.85em;
 }
 
 .product-price img {

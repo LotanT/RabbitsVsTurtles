@@ -1,13 +1,14 @@
 .overview {
-  background: #a7a6a6 url("../../assets/pic/overview-background.png");
+  background: url("../../assets/pic/overview-background.png"),
+    url("../../assets/pic/overview-background-small.png");
   height: 100%;
   width: 100%;
   background-position: 50%, 50% !important;
   background-size: cover !important;
   font-size: 1rem;
 }
-.overview-background-small{
-  background:  url("../../assets/pic/overview-background-small.png");
+.overview-background-small {
+  background: url("../../assets/pic/overview-background-small.png");
   height: 99.4%;
   width: 100vw;
   background-position: 50% !important;
@@ -17,7 +18,7 @@
 .overview-header {
   position: absolute;
   transform: translate(-50%);
-  top: 10%;
+  top: 12%;
   left: 50%;
   height: 13%;
   font-size: 0.8em;
@@ -36,31 +37,34 @@
 } */
 .overview-rabbit-header {
   position: absolute;
-  transform: translate(-33%, -50%);
-  top: 38%;
+  /* transform: translate(-33%, -50%); */
+  transform: translate(-50%, -50%);
+  top: 34%;
   left: 20%;
   font-weight: 600;
   font-size: 1.25em;
   color: #ffd36b;
-  width: 18%;
+  width: 30%;
 }
 .overview-turtle-header {
   position: absolute;
-  transform: translate(-33%, -50%);
-  top: 38%;
+  /* transform: translate(-33%, -50%); */
+  transform: translate(-50%, -50%);
+  top: 34%;
   left: 82.5%;
   font-weight: 600;
   font-size: 1.25em;
   color: #ffd36b;
-  width: 19%;
+  width: 30%;
+  text-align: center;
 }
 .overview-score {
   position: absolute;
   transform: translate(-50%, -50%);
-  top: 47%;
+  top: 39%;
   left: 50%;
   font-weight: 700;
-  font-size: 1.2em;
+  font-size: 1.7em;
   line-height: 54px;
   color: #ffffff;
   text-shadow: 2px 2px 4px rgb(0 0 0 / 10%), -2px -2px 4px rgb(0 0 0 / 10%);
@@ -121,33 +125,43 @@
   justify-content: space-between;
 }
 
-/* .overview-all-players .player-display-name {
-  left: 40%;
-} */
-@media only screen and (min-width: 480px){
-  .overview-turtle-header{
-    transform: translate(-50%,-50%);
-  }
-  .overview-rabbit-header{
-    transform: translate(-50%,-50%);
-  }
-  .overview-score{
-    font-size: 1.7em;
-  }
+#overview-header-img {
+  display: none;
 }
-@media only screen and (min-width: 600px){
-  .overview-header{
+#overview-header-img-small {
+  display: block;
+}
+
+@media only screen and (min-width: 600px) {
+  .overview-header {
     font-size: 1em;
+    top: 10%;
+  }
+  #overview-header-img {
+    display: block;
+  }
+  #overview-header-img-small {
+    display: none;
+  }
+  .overview-turtle-header {
+    top: 38%;
+  }
+  .overview-rabbit-header {
+    width: fit-content;
+    top: 38%;
+  }
+  .overview-score {
+    top: 47%;
   }
 }
 
-@media only screen and (min-width: 800px){
+@media only screen and (min-width: 800px) {
   .overview-all-players {
     height: 32%;
     width: 90%;
     top: 56%;
   }
-  .overview-header{
-    top: 13%
+  .overview-header {
+    top: 13%;
   }
 }

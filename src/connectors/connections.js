@@ -3,7 +3,7 @@ import { initializeConnector } from '@web3-react/core'
 import { MetaMask } from '@web3-react/metamask'
 import { Network } from '@web3-react/network'
 import { WalletConnect } from '@web3-react/walletconnect'
-// import {Torus} from '@web3-react/torus-connector'
+// import { Torus } from '@web3-react/torus-connector'
 import { CHAINS } from './chains'
 
 export const ConnectionType = {
@@ -12,6 +12,7 @@ export const ConnectionType = {
   WALLET_CONNECT : 'WalletConnect',
   NETWORK : 'Network',
   GNOSIS_SAFE : 'GNOSIS_SAFE',
+  TORUS: 'Torus'
 }
 
 const chainUrls = {} 
@@ -39,6 +40,13 @@ export const injectedConnection = {
   hooks: web3InjectedHooks,
   type: ConnectionType.INJECTED,
 }
+
+// const [web3Torus, web3TorusHooks] = initializeConnector((actions) => new Torus({ actions, onError }))
+// export const TorusConnection = {
+//   connector: web3Torus,
+//   hooks: web3TorusHooks,
+//   type: ConnectionType.TORUS,
+// }
 
 const [web3WalletConnect, web3WalletConnectHooks] = initializeConnector(
   (actions) =>

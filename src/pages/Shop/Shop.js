@@ -9,16 +9,212 @@ import Introduction from "../../components/Introduction/Introduction";
 import Product from "../../components/Product/Product";
 import ChoosePlayer from "../../components/ChoosePlayer/ChoosePlayer";
 import UpgradeConfirm from "../../components/UpgradeConfirm/UpgradeConfirm";
-import frame from "../../assets/pic/frame.png";
+import frame from "../../assets/pic/shop-keys-background.png";
 import { toast, Flip } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 const Shop = ({ confirmTransaction, isAudio }) => {
-  const products = [
-    { header: "Attack", productImg: "potion-green", price: 5 },
-    { header: "Defence", productImg: "potion-blue", price: 5 },
-    { header: "Stamina", productImg: "potion-red", price: 10 },
-    { header: "Armor", productImg: "potion-yellow", price: 10 },
-  ];
+  const products = {
+    regular: {
+      header: "STORE",
+      products: [
+        {
+          header: "Attack",
+          productImg: "potion-green",
+          price: 5,
+          desc: "+5 Attack",
+        },
+        {
+          header: "Defence",
+          productImg: "potion-blue",
+          price: 5,
+          desc: "+5 Defence",
+        },
+        {
+          header: "Stamina",
+          productImg: "potion-red",
+          price: 10,
+          desc: "+20 Attack",
+        },
+        {
+          header: "Armor",
+          productImg: "potion-yellow",
+          price: 10,
+          desc: "+20 Attack",
+        },
+      ],
+    },
+    books: {
+      header: "Wisdom Library",
+      products: [
+        {
+          header: "Attack",
+          productImg: "book-green",
+          price: 5,
+          desc: "+5 Attack",
+        },
+        {
+          header: "Defence",
+          productImg: "book-blue",
+          price: 5,
+          desc: "+5 Defence",
+        },
+        {
+          header: "Stamina",
+          productImg: "book-red",
+          price: 10,
+          desc: "+20 Attack",
+        },
+        {
+          header: "Armor",
+          productImg: "book-yellow",
+          price: 10,
+          desc: "+20 Attack",
+        },
+      ],
+    },
+    hats: {
+      header: "Witch Valley",
+      products: [
+        {
+          header: "Attack",
+          productImg: "hat-brown",
+          price: 5,
+          desc: "+5 Attack",
+        },
+        {
+          header: "Defence",
+          productImg: "hat-red",
+          price: 5,
+          desc: "+5 Defence",
+        },
+        {
+          header: "Stamina",
+          productImg: "hat-purple",
+          price: 10,
+          desc: "+20 Attack",
+        },
+        {
+          header: "Armor",
+          productImg: "hat-green",
+          price: 10,
+          desc: "+20 Attack",
+        },
+      ],
+    },
+    shields: {
+      header: "The Chapel",
+      products: [
+        {
+          header: "Attack",
+          productImg: "armor-red",
+          price: 5,
+          desc: "+5 Attack",
+        },
+        {
+          header: "Defence",
+          productImg: "armor-green",
+          price: 5,
+          desc: "+5 Defence",
+        },
+        {
+          header: "Stamina",
+          productImg: "armor-purple",
+          price: 10,
+          desc: "+20 Attack",
+        },
+        {
+          header: "Armor",
+          productImg: "armor-yellow",
+          price: 10,
+          desc: "+20 Attack",
+        },
+      ],
+    },
+    crowns: {
+      header: "The Palace",
+      products: [
+        {
+          header: "Attack",
+          productImg: "crown-gold-blue",
+          price: 5,
+          desc: "+5 Attack",
+        },
+        {
+          header: "Defence",
+          productImg: "crown-gold-red",
+          price: 5,
+          desc: "+5 Defence",
+        },
+        {
+          header: "Stamina",
+          productImg: "crown-silver-blue",
+          price: 10,
+          desc: "+20 Attack",
+        },
+        {
+          header: "Armor",
+          productImg: "crown-silver-red",
+          price: 10,
+          desc: "+20 Attack",
+        },
+      ],
+    },
+    keys: {
+      header: "The Vault",
+      products: [
+        {
+          header: "Attack",
+          productImg: "key-gold",
+          price: 5,
+          desc: "+5 Attack",
+        },
+        {
+          header: "Defence",
+          productImg: "key-pink",
+          price: 5,
+          desc: "+5 Defence",
+        },
+        {
+          header: "Stamina",
+          productImg: "key-blue",
+          price: 10,
+          desc: "+20 Attack",
+        },
+        {
+          header: "Armor",
+          productImg: "key-silver",
+          price: 10,
+          desc: "+20 Attack",
+        },
+      ],
+    },
+    veggies: {
+      header: "Megical Veggies",
+      products: [
+        { header: "Attack", productImg: "carrot", price: 5, desc: "+5 Attack" },
+        {
+          header: "Defence",
+          productImg: "plant",
+          price: 5,
+          desc: "+5 Defence",
+        },
+        {
+          header: "Stamina",
+          productImg: "adamame",
+          price: 10,
+          desc: "+20 Attack",
+        },
+        {
+          header: "Armor",
+          productImg: "small-radish",
+          price: 10,
+          desc: "+20 Attack",
+        },
+      ],
+    },
+  };
+
   const character = { url: "magition", top: "-2%", left: "86%" };
 
   const mintInfo = {
@@ -28,37 +224,44 @@ const Shop = ({ confirmTransaction, isAudio }) => {
     increaseArmorCost: "10000000000000000000", // 10 Matic
     revivePlayerCost: "500000000000000000000", // 500 Matic
   };
+
   const [activeStage, setActiveStage] = useState("store");
   const [choosenPlayer, setChoosenPlayer] = useState();
   const [choosenUpgrade, setChoosenUpgrade] = useState();
   const [playersData, setPlayersData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const {accounts} = useWeb3React();
-  const players = useSelector(selectAllPlayers)
-  const info = useSelector(selectAllInfo)
-  const audio = new Audio(require('../../assets/music/Adventure - Store.mp3'))
-  audio.loop = true
+  const { accounts } = useWeb3React();
+  const players = useSelector(selectAllPlayers);
+  const info = useSelector(selectAllInfo);
+  const { type } = useParams();
+  const shopType = type ? type : "regular";
+  const audio = new Audio(require("../../assets/music/Adventure - Store.mp3"));
+  audio.loop = true;
 
-  useEffect(()=>{
-    let filterPlayers = players.filter(
-      (player) =>{ 
-        if(choosenPlayer?.id === player.id) setChoosenPlayer(player)
-        return player.player.alive
-      });
-      setPlayersData(filterPlayers)
-  },[players])
+  useEffect(() => {
+    let filterPlayers = players.filter((player) => {
+      if (choosenPlayer?.id === player.id) setChoosenPlayer(player);
+      return player.player.alive;
+    });
+    setPlayersData(filterPlayers);
+  }, [players]);
 
-  useEffect(()=>{
-    if(isAudio) audio.play()
-    else{
-      audio.pause()
+  useEffect(() => {
+    setIsLoading(true)
+    resetState()
+  }, [type]);
+
+  useEffect(() => {
+    if (isAudio) audio.play();
+    else {
+      audio.pause();
       audio.currentTime = 0;
     }
-    return ()=>{
-      audio.pause()
+    return () => {
+      audio.pause();
       audio.currentTime = 0;
-    }
-  },[isAudio])
+    };
+  }, [isAudio]);
 
   const setChoosen = (choosen) => {
     if (typeof choosen === "number") {
@@ -72,14 +275,14 @@ const Shop = ({ confirmTransaction, isAudio }) => {
     }
   };
 
-  const resetState = () =>{
-    setChoosenPlayer('')
-    setChoosenUpgrade('')
-    setActiveStage('store')
-  }
+  const resetState = () => {
+    setChoosenPlayer("");
+    setChoosenUpgrade("");
+    setActiveStage("store");
+  };
 
   const buyUpgrade = async () => {
-    let desc = {}
+    let desc = {};
     const params = {
       to: info.contractJSON.address,
       from: accounts[0],
@@ -92,56 +295,63 @@ const Shop = ({ confirmTransaction, isAudio }) => {
           info.web3.utils.toHex(Number(mintInfo.increaseAttackCost))
         );
         params.data = info.contract.methods
-          .increaseAttack(Number(choosenPlayer.player.name.split('#')[1]))
+          .increaseAttack(Number(choosenPlayer.player.name.split("#")[1]))
           .encodeABI();
-        desc.action = 'Increase Attack'
-        desc.txt = `You are about to give player number #${choosenPlayer.player.name.split('#')[1]} attack potion.`
-        desc.img = choosenPlayer.image
-        desc.symbol = products[0].productImg
+        desc.action = "Increase Attack";
+        desc.txt = `You are about to give player number #${
+          choosenPlayer.player.name.split("#")[1]
+        } attack potion.`;
+        desc.img = choosenPlayer.image;
+        desc.symbol = products[shopType].products[0].productImg;
         break;
       case 1:
         params.value = String(
           info.web3.utils.toHex(Number(mintInfo.increaseDefenseCost))
         );
         params.data = info.contract.methods
-          .increaseDefense(Number(choosenPlayer.player.name.split('#')[1]))
+          .increaseDefense(Number(choosenPlayer.player.name.split("#")[1]))
           .encodeABI();
-          desc.action = 'Increase Defence'
-          desc.txt = `You are about to give player number #${choosenPlayer.player.name.split('#')[1]} Defence potion.`
-          desc.img = choosenPlayer.image
-          desc.symbol = products[1].productImg
+        desc.action = "Increase Defence";
+        desc.txt = `You are about to give player number #${
+          choosenPlayer.player.name.split("#")[1]
+        } Defence potion.`;
+        desc.img = choosenPlayer.image;
+        desc.symbol = products[shopType].products[1].productImg;
         break;
       case 2:
         params.value = String(
           info.web3.utils.toHex(Number(mintInfo.increaseStaminaCost))
         );
         params.data = info.contract.methods
-          .increaseStamina(Number(choosenPlayer.player.name.split('#')[1]))
+          .increaseStamina(Number(choosenPlayer.player.name.split("#")[1]))
           .encodeABI();
-        desc.action = 'Increase Stamina'
-        desc.txt = `You are about to give player number #${choosenPlayer.player.name.split('#')[1]} Stamina potion.`
-        desc.img = choosenPlayer.image
-        desc.symbol = products[2].productImg
+        desc.action = "Increase Stamina";
+        desc.txt = `You are about to give player number #${
+          choosenPlayer.player.name.split("#")[1]
+        } Stamina potion.`;
+        desc.img = choosenPlayer.image;
+        desc.symbol = products[shopType].products[2].productImg;
         break;
       case 3:
         params.value = String(
           info.web3.utils.toHex(Number(mintInfo.increaseArmorCost))
         );
         params.data = info.contract.methods
-          .increaseArmor(Number(choosenPlayer.player.name.split('#')[1]))
+          .increaseArmor(Number(choosenPlayer.player.name.split("#")[1]))
           .encodeABI();
-        desc.action = 'Increase Armor'
-        desc.txt = `You are about to give player number #${choosenPlayer.player.name.split('#')[1]} Armor potion.`
-        desc.img = choosenPlayer.image
-        desc.symbol = products[3].productImg
+        desc.action = "Increase Armor";
+        desc.txt = `You are about to give player number #${
+          choosenPlayer.player.name.split("#")[1]
+        } Armor potion.`;
+        desc.img = choosenPlayer.image;
+        desc.symbol = products[shopType].products[3].productImg;
         break;
       default:
         return;
     }
-    const res = await confirmTransaction(params, desc)
-    console.log(res);
-    if(res){
-        toast.warning('Insufficient funds', {
+    const res = await confirmTransaction(params, desc);
+    if (res) {
+      toast.warning("Insufficient funds", {
         theme: "light",
         position: "bottom-left",
         autoClose: 3000,
@@ -149,9 +359,42 @@ const Shop = ({ confirmTransaction, isAudio }) => {
       });
     }
   };
-  if(isLoading) return <div className="shop-background-small"> <img alt="" src={require("../../assets/pic/shop-background.png")} style={{opacity: '0'}} onLoad={() => setIsLoading(false)}/><div className="loader-container" style={{height: '50%'}}><div className="loader"></div></div></div>
+
+  if (isLoading)
+    return (
+      <div className="shop-background-small"
+      style={
+        type && type !== 'regular'
+          ? {
+              background: `url(${require(`../../assets/pic/shop-${shopType}-background-small.png`)})`,
+            }
+          : {}
+      }>
+        {" "}
+        <img
+          alt=""
+          src={type && type !== 'regular'
+          ?require(`../../assets/pic/shop-${shopType}-background.png`)
+          :require(`../../assets/pic/shop-background.png`)}
+          style={{ opacity: "0" }}
+          onLoad={() => setIsLoading(false)}
+        />
+        <div className="loader-container" style={{ height: "50%" }}>
+          <div className="loader"></div>
+        </div>
+      </div>
+    );
   return (
-    <div className="shop">
+    <div
+      className="shop"
+      style={
+        type && type !== 'regular'
+          ? {
+              background: `url(${require(`../../assets/pic/shop-${shopType}-background.png`)})`,
+            }
+          : {}
+      }
+    >
       {activeStage === "introduction" && (
         <Introduction
           header={"STORE"}
@@ -172,9 +415,9 @@ const Shop = ({ confirmTransaction, isAudio }) => {
               src={require(`../../assets/pic/${character.url}.png`)}
             />
           </div>
-          <div className="shop-frame-header">STORE</div>
+          <div className="shop-frame-header">{products[shopType].header}</div>
           <div className="product-list">
-            {products.map((product, idx) => {
+            {products[shopType].products.map((product, idx) => {
               return (
                 <Product
                   key={product.header}
@@ -184,6 +427,7 @@ const Shop = ({ confirmTransaction, isAudio }) => {
                   func={() => setChoosen(idx)}
                   height="45%"
                   btnTxt={"Select"}
+                  desc={product.desc}
                 />
               );
             })}
@@ -196,7 +440,7 @@ const Shop = ({ confirmTransaction, isAudio }) => {
       {activeStage === "confirmUpgrade" && (
         <UpgradeConfirm
           player={choosenPlayer}
-          product={products[choosenUpgrade]}
+          product={products[shopType].products[choosenUpgrade]}
           setActiveStage={setActiveStage}
           resetState={resetState}
           buyUpgrade={buyUpgrade}

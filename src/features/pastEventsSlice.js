@@ -9,7 +9,8 @@ const initialState = {
 export const fetchPastEvents = createAsyncThunk(
   "fetchPastEvents",
   async (info) => {
-    // console.time("checkTime");
+    console.time("checkTime");
+    console.log('pastEvents');
     let allPastEvents = localStorage.getItem('get past events')
     if(allPastEvents) return JSON.parse(allPastEvents) 
     allPastEvents = []
@@ -32,7 +33,8 @@ export const fetchPastEvents = createAsyncThunk(
     }
     allPastEvents.sort((a, b) => b.blockNumber - a.blockNumber);
     console.timeEnd("checkTime");
-    localStorage.setItem('get past events',JSON.stringify(allPastEvents))
+    console.log(allPastEvents);
+    if(allPastEvents.length)localStorage.setItem('get past events',JSON.stringify(allPastEvents))
     return allPastEvents;
   }
 );
@@ -48,7 +50,7 @@ const pastEventsSlice = createSlice({
       })
       .addCase(fetchPastEvents.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.pastEvents = state.pastEvents.concat(action.payload);
+        state.pastEvents = action.payload;
       })
       .addCase(fetchPastEvents.rejected, (state, action) => {
         state.status = "failed";

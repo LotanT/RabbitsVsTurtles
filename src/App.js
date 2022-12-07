@@ -12,6 +12,9 @@ import Web3 from "web3";
 import { CHAINS } from "./connectors/chains";
 import { useRef } from "react";
 import { Connect } from "./services/connect.wallet.service";
+import io from 'socket.io-client'
+
+
 
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -261,24 +264,28 @@ function App() {
         />
       <Routes>
         <Route path="/" element={<Welcome isAudio={isAudio} setIsAudio={setIsAudio}/>} />
-        <Route path="map" element={<Map isAudio={isAudio}/>} />
+        <Route path="/map" element={<Map isAudio={isAudio}/>} />
         <Route
-          path="mint"
+          path="/mint"
           element={<Mint confirmTransaction={confirmTransaction} mintInfo={mintInfo} isAudio={isAudio}/>}
         />
         <Route
-          path="shop"
+          path="/shop"
           element={<Shop confirmTransaction={confirmTransaction} isAudio={isAudio}/>}
         />
         <Route
-          path="graveyard"
+          path="/shop/:type"
+          element={<Shop confirmTransaction={confirmTransaction} isAudio={isAudio}/>}
+        />
+        <Route
+          path="/graveyard"
           element={<Graveyard confirmTransaction={confirmTransaction} isAudio={isAudio}/>}
         />
         <Route
-          path="arena"
+          path="/arena"
           element={<Arena confirmTransaction={confirmTransaction} isAudio={isAudio}/>}
         />
-        <Route path="overview" element={<Overview isAudio={isAudio}/>} />
+        <Route path="/overview" element={<Overview isAudio={isAudio}/>} />
       </Routes>
      <Footer isDarkMode={isDarkMode} isAudio={isAudio} setIsAudio={setIsAudio}/>
         <PlayerDetails />

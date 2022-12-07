@@ -7,13 +7,14 @@ import productPriceFrame from '../../assets/pic/product-price-frame.png'
 import maticSymbol from '../../assets/pic/matic-icon.png'
 import btn from '../../assets/pic/mint-btn.png'
 
-const Product = ({productImg, price = null, header, func, btnTxt, height}) => {
+const Product = ({productImg, price = null, header, func, btnTxt, height, desc='+5 Attack'}) => {
   const { chainId } = useWeb3React()
 
   return (
     <div className='product' style={{height}}>
         <div className='product-header'>{header}</div>
         <div className='product-img'><img alt='' src={require(`../../assets/pic/${productImg}.png`)}/></div>
+        <div className='product-desc'>{desc}</div>
         {price && <div className='product-price-container'>
             <img alt='' src={productPriceFrame}/>
             <div className='product-price'>
