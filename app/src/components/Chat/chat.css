@@ -1,0 +1,145 @@
+.chat{
+    height: 70%;
+    background: #37393F;
+    aspect-ratio: 1/1.2;
+    position: absolute;
+    bottom: 0;
+    left: 30%;
+    color: #ffffff;
+    overflow: hidden;
+}
+.chat-header{
+    background: #303135;
+    display: flex;
+    justify-content: space-between;
+    height: 10%;
+    padding: 12px 9px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.chat-subheader{
+    display: flex;
+    height: 100%;
+    gap: 15px;
+}
+.chat-subheader>*{
+    height: 100%;
+}
+.chat-subheader-name{
+    cursor: pointer;
+}
+.choose-user{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    gap: 15px;
+}
+.chat-dark-screen{
+    position: absolute;
+    background: #37393f73;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    /* transition: ; */
+    transition: ease-in-out 0.2s;
+}
+.chat-room{
+    height: 100%;
+    width: 77%;
+    position: absolute;
+    background: #37393f;
+    left: -80%;
+    transition: 0.4s;
+    z-index: 1;
+    font-weight: 400;
+}
+.chat-room-header{
+    display: flex;
+    height: 10%;
+    align-items: center;
+    padding: 12px 9px;
+    gap: 15px;
+}
+.chat-room-body>*{
+    padding: 13px 25px;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: 0.2s;
+}
+.chat-room-body>*:hover{
+    background: #7e7e7e;
+}
+
+.chat-body{
+    height: 80%;
+}
+.chat-body-container{
+    height: 100%;
+    overflow-y: auto;
+}
+
+.chat-footer{
+    height: 10%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+
+.chat-smiley-icon{
+    height: 80%;
+}
+
+.chat-input{
+    background: #FFFFFF;
+    border-radius: 32px;
+    height: 80%;
+    width: 87%;
+    padding: 1px 33px 0 13px;
+    outline: none;
+    border: none;
+    color: #000000;
+    font-size: 1em;
+    font-weight: 400;
+}
+.chat-send-btn{
+    position: absolute;
+    top: 30%;
+    right: 6%;
+    height: 50%;
+    cursor: pointer;
+}
+
+
+.message{
+display: flex;
+gap: 15px;
+align-items: center;
+border-bottom: solid 1px gray ;
+/* min-height: 40px; */
+}
+.message-pic{
+    height: 40px;
+    padding: 3px 5px;
+}
+.message-content{
+
+}
+.message-content-header{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.message-content-txt{
+    font-size: 0.8em;
+}
+.message-username{
+    font-size: 0.9em;
+
+}
+.message-time{
+    color: #9E9E9E;
+    font-size: 0.75em;
+}
