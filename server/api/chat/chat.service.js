@@ -11,12 +11,13 @@ async function query(filterBy = {}) {
   try {
     let chats = {}
     let collection = await dbService.getCollection(`${collectionName}Rabbit`);
-    console.log(collection);
     chats['Rabbit'] = await collection.find().toArray();
     collection = await dbService.getCollection(`${collectionName}Turtle`);
     chats['Turtle'] = await collection.find().toArray();
     collection = await dbService.getCollection(`${collectionName}General`);
     chats['General'] = await collection.find().toArray();
+    collection = await dbService.getCollection(`${collectionName}Announcements`);
+    chats['Announcements'] = await collection.find().toArray();
     return chats;
   } catch (err) {
     console.log(err);

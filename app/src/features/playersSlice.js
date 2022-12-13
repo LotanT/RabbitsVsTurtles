@@ -7,6 +7,7 @@ import Web3 from "web3";
 import contractJSON from "../contracts/contract.json";
 import abi from "../contracts/abi.json";
 import { CHAINS } from "../connectors/chains";
+import { httpService } from "../services/http.service";
 
 const playersAdapter = createEntityAdapter({
   sortComparer: (a, b) => a.id - b.id,
@@ -20,50 +21,52 @@ const initialState = playersAdapter.getInitialState({
 export const fetchPlayers = createAsyncThunk(
   "fetchPlayers",
   async (chainId) => {
-    // console.time("checkTime");
-    const request = [];
-    const playersData = [];
-    const web3 = new Web3(CHAINS[chainId].urls[0]);
-    const contract = new web3.eth.Contract(
-      abi.abi,
-      contractJSON.address[chainId]
-    );
-    let result;
-    try {
-      result = await web3.eth.call({
-        to: CHAINS[chainId].contractAddress,
-        data: contract.methods.totalSupply().encodeABI(),
-      });
-    } catch (err) {
-      console.log(err);
-    }
-    const totalSupply = web3.utils.hexToNumberString(result);
-    for (let i = 1; i <= totalSupply; i++) {
-      request.push(
-        Promise.all([
-          contract.methods.tokenURI(i).call(),
-          contract.methods.ownerOf(i).call(),
-          contract.methods.getPlayerByIndex(i).call(),
-        ])
-      );
-    }
-    let allData;
-    try {
-      allData = await Promise.all(request);
-    } catch (err) {
-      console.log(err);
-    }
-    for (let i = 0; i < allData.length; i++) {
-      const json = atob(allData[i][0].substring(29));
-      const result = JSON.parse(json);
-      playersData.push({
-        id: allData[i][2].name.split("#")[1],
-        image: result.image,
-        player: allData[i][2],
-        owner: allData[i][1],
-      });
-    }
-    // console.timeEnd("checkTime");
+    console.time("checkTime");
+    // const request = [];
+    // const playersData = [];
+    // const web3 = new Web3(CHAINS[chainId].urls[0]);
+    // const contract = new web3.eth.Contract(
+    //   abi.abi,
+    //   contractJSON.address[chainId]
+    // );
+    // let result;
+    // try {
+    //   result = await web3.eth.call({
+    //     to: CHAINS[chainId].contractAddress,
+    //     data: contract.methods.totalSupply().encodeABI(),
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    // const totalSupply = web3.utils.hexToNumberString(result);
+    // for (let i = 1; i <= totalSupply; i++) {
+    //   request.push(
+    //     Promise.all([
+    //       contract.methods.tokenURI(i).call(),
+    //       contract.methods.ownerOf(i).call(),
+    //       contract.methods.getPlayerByIndex(i).call(),
+    //     ])
+    //   );
+    // }
+    // let allData;
+    // try {
+    //   allData = await Promise.all(request);
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    // for (let i = 0; i < allData.length; i++) {
+    //   const json = atob(allData[i][0].substring(29));
+    //   const result = JSON.parse(json);
+    //   playersData.push({
+    //     id: allData[i][2][0].split("#")[1],
+    //     image: result.image,
+    //     player: allData[i][2],
+    //     owner: allData[i][1],
+    //   });
+    // }
+    console.log(contractJSON.address[chainId]);
+    const playersData = await httpService.get(`players/${contractJSON.address[chainId]}`)
+    console.timeEnd("checkTime");
     return playersData;
   }
 );
@@ -81,7 +84,7 @@ export const newPlayer = createAsyncThunk(
     const json = atob(newPlayer[0].substring(29));
     const result = JSON.parse(json);
     const newPlayerData = {
-      id: newPlayer[2].name.split("#")[1],
+      id: newPlayer[2][0].split("#")[1],
       image: result.image,
       player: newPlayer[2],
       owner: newPlayer[1],
@@ -101,7 +104,7 @@ export const updatePlayer = createAsyncThunk("updatePlayer", async (info) => {
   const json = atob(newPlayer[0].substring(29));
   const result = JSON.parse(json);
   const newPlayerData = {
-    id: newPlayer[2].name.split("#")[1],
+    id: newPlayer[2][0].split("#")[1],
     image: result.image,
     player: newPlayer[2],
     owner: newPlayer[1],

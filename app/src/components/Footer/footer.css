@@ -31,64 +31,78 @@
   font-size: 0.875rem;
   letter-spacing: 0.1em;
 }
-.footer-links{
+.footer-links {
   position: relative;
-    bottom: 76%;
-    height: 42%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0% 25px;
+  bottom: 76%;
+  height: 42%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0% 25px;
 }
-.footer-links a{
+.footer-links a {
   height: 100%;
 }
-.footer-links>*{
+.footer-links > * {
   cursor: pointer;
 }
-.footer-links>*:hover{
+.footer-links > *:hover {
   transform: scale(1.07);
 }
-.footer-my-warriors{
+.footer-my-warriors {
   height: 100%;
-position: relative;
-margin-left: 5%;
+  position: relative;
+  margin-left: 5%;
 }
-.footer-my-warriors:hover{
-transform: scale(1.04);
+.footer-my-warriors:hover {
+  transform: scale(1.04);
 }
-.footer-sound{
+.footer-sound {
   height: 50%;
   aspect-ratio: 1.1/1;
   display: none;
 }
-.footer-sound:hover{
+.footer-sound:hover {
   transform: scale(1.05);
 }
 
-.footer-network{
+.footer-network {
   height: 100%;
   position: relative;
+  margin-right: 5%;
 }
-.footer-network:hover{
+.footer-network:hover {
   transform: scale(1.05);
 }
-.right{
+.footer-chat {
+  height: 50%;
+}
+.footer-chat-small {
+  height: 50%;
+  position: absolute;
+  top: 44%;
+  right: -10px;
+  transform: translate(-50%, -50%);
+}
+.right {
   direction: rtl;
 }
 
 @media only screen and (min-width: 1000px) {
-  .footer-sound{
-      display: block;
+  .footer-sound {
+    display: block;
   }
 }
 
 @media only screen and (min-width: 800px) {
-  .footer-side{
-      display: flex;
+  .footer-side {
+    display: flex;
   }
   .footer {
     height: 13%;
+  }
+  .footer-chat-small{
+    display: none;
   }
 }

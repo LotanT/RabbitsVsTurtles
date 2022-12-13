@@ -28,9 +28,11 @@ const { connectSockets } = require('./services/socket.service');
 const { startAllListeners } = require('./services/listeners.service')
 const chatRoutes = require('./api/chat/chat.routes')
 const eventsRoutes = require('./api/events/events.routes')
+const playerRoutes = require('./api/players/players.routes')
 
 app.use('/api/chat', chatRoutes)
 app.use('/api/events', eventsRoutes)
+app.use('/api/players', playerRoutes)
 connectSockets(server)
 startAllListeners()
 

@@ -22,13 +22,11 @@ import WalletDetails from "../WalletDetails/WalletDetails";
 import Logout from "../Logout/Logout";
 import Events from "../Events/Events";
 import Leaderboard from "../Leaderboard/Leaderboard";
-import Chat from "../Chat/Chat";
 import { selectAllDarkMode } from "../../features/darkModeSlice";
 
 const Header = ({ setActiveModal, balance, setIsNotification, isNotification, isAudio, setIsAudio, getUserBalance }) => {
   const [isWalletDetails, setIsWalletDetails] = useState(false);
   const [isEvents, setIsEvents] = useState(false);
-  const [isChat, setIsChat] = useState(false);
   const [isLeaderboard, setIsLeaderboard] = useState(false);
   const { accounts } = useWeb3React();
   const [isLogout, setIsLogout] = useState(false);
@@ -75,7 +73,7 @@ const Header = ({ setActiveModal, balance, setIsNotification, isNotification, is
           </Link>
         </div>
       </div>
-      <Link to="/map" className="header-logo" onClick={()=>{setIsChat(true)}}>
+      <Link to="/map" className="header-logo">
         <img alt="" src={logo} style={{ height: "100%" }} />
       </Link>
       <div className="header-account">
@@ -143,9 +141,6 @@ const Header = ({ setActiveModal, balance, setIsNotification, isNotification, is
           <Logout isDarkMode={isDarkMode} setIsLogout={setIsLogout} />
         </div>
       )}
-      {isChat && <div className="outside-click" onClick={() => setIsChat(false)}>
-      <Chat/>
-      </div>}
     </div>
   );
 };

@@ -15,27 +15,27 @@ const PlayerDetails = () => {
   };
 
   const getHeaderBackground = ()=>{
-    if(!player.player.alive){
+    if(!player.player[4]){
       return {background: 'linear-gradient(90deg, rgb(164, 166, 166), rgb(120, 120, 120))'}
-    }else if(player.player.playerType === 'Turtle'){
+    }else if(player.player[1] === 'Turtle'){
       return {background: 'linear-gradient(90deg, rgb(245, 77, 51), rgb(186, 52, 32))'}
     }else{
       return {background: 'linear-gradient(90deg, rgb(0, 161, 247), rgb(0, 88, 204))'}
     }
   }
   const getFrameBackground = ()=>{
-    if(!player.player.alive){
+    if(!player.player[4]){
       return {background: 'rgb(184, 186, 186)'}
-    }else if(player.player.playerType === 'Turtle'){
+    }else if(player.player[1] === 'Turtle'){
       return {background: 'rgb(235, 68, 68)'}
     }else{
       return {background: 'rgb(1, 132, 249)'}
     }
   }
   const getExitBackground = ()=>{
-    if(!player.player.alive){
+    if(!player.player[4]){
       return {background: 'linear-gradient(#a4a6a6,#787878)'}
-    }else if(player.player.playerType === 'Turtle'){
+    }else if(player.player[1] === 'Turtle'){
       return {background: 'linear-gradient(#f54d33,#ba3420)'}
     }else{
       return {background: 'linear-gradient(#00a1f7,#0058cc)'}
@@ -50,7 +50,7 @@ const PlayerDetails = () => {
       <div className="player-container" style={getFrameBackground()}>
         <div className="player-details">
           <div className="player-details-name" style={getHeaderBackground()}>
-            {`${player.player.playerType} #${player.id}`}
+            {`${player.player[1]} #${player.id}`}
           </div>
           <div className="player-img">
             <img alt="" src={player.image} />

@@ -43,6 +43,7 @@ function App() {
   const [chosenConnection, setChosenConnection] = useState("");
   const [isNotification, setIsNotification] = useState(true);
   const [balance, setBalance] = useState("");
+  const [prevChain, setPrevChain] = useState(0);
   const [mintInfo, setMintInfo] = useState({ cost: "0", totalSupply: '0' });
   const { provider, accounts, chainId, isActive } = useWeb3React();
   const [isAudio, setIsAudio] = useState(false)
@@ -57,9 +58,12 @@ function App() {
 
   useEffect(() => {
     if(!isActive) Connect('Network')
-    startEventListener();
     getCost();
     getTotal()
+    setBalance("");
+    if (accounts?.length !== 0 && accounts) {
+      setTimeout(getUserBalance,5000)
+    }
   }, [info]);
  
   useEffect(() => {
@@ -72,18 +76,30 @@ function App() {
   useEffect(()=>{
     if(!isActive) Connect('Network')
     if(chainId === 137 || chainId === 5){
-      initInfo()
-      dispatch(removeAllPlayers())
-      store.dispatch(fetchPlayers(chainId));
-    }
-    setBalance("");
-    if (accounts?.length !== 0 && accounts) {
-      setTimeout(getUserBalance,5000)
+      if(prevChain !== chainId){
+        initInfo()
+        dispatch(removeAllPlayers())
+        store.dispatch(fetchPlayers(chainId));
+        setPrevChain(chainId)
+      }
     }
   },[chainId])
 
+  useEffect(()=>{
+    let options = {
+      filter: {
+        value: [],
+      },
+      fromBlock: 'latest',
+    };
+    if(emitter.current) emitter.current.removeAllListeners('data');
+    emitter.current = info.contractWS.events.allEvents(options).on("data", (event) => eventAction(event));
+    return ()=>{
+      emitter.current.removeAllListeners('data');
+    }
+  },[isNotification, info])
+
   const initInfo = ()=>{
-    console.log(CHAINS[chainId].contractAddress);
     const web3 = new Web3(CHAINS[chainId].urls[0]);
     const web3ws = new Web3(new Web3.providers.WebsocketProvider(CHAINS[chainId].WSurls[0]));
     const contract = new web3.eth.Contract(abi.abi, CHAINS[chainId].contractAddress);
@@ -174,23 +190,6 @@ function App() {
       console.log(err);
     }
   }
-  const startEventListener = () => {
-  
-  };
-  useEffect(()=>{
-    let options = {
-      filter: {
-        value: [],
-      },
-      fromBlock: 'latest',
-    };
-    console.log(info.contractWS, chainId);
-    if(emitter.current) emitter.current.removeAllListeners('data');
-    emitter.current = info.contractWS.events.allEvents(options).on("data", (event) => eventAction(event));
-    return ()=>{
-      emitter.current.removeAllListeners('data');
-    }
-  },[isNotification, info])
 
   const eventAction = async (event) => {
     let currBlock = await info.web3.eth.getBlockNumber()

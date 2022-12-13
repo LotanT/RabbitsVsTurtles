@@ -28,10 +28,8 @@ const Graveyard = ({confirmTransaction, isAudio}) => {
     let filterPlayers = players.filter(
       (player) =>{ 
         if(choosenPlayer?.id === player.id) setChoosenPlayer(player)
-        return !player.player.alive
+        return !player.player[4]
       });
-      console.log(filterPlayers);
-
       setPlayersData(filterPlayers)
   },[players])
 
@@ -59,7 +57,7 @@ const Graveyard = ({confirmTransaction, isAudio}) => {
       from: accounts[0],
       value: String(info.web3.utils.toHex(Number(revivePlayerCost))),
       data: info.contract.methods
-        .revivePlayer(choosenPlayer.player.name.split("#")[1])
+        .revivePlayer(choosenPlayer.player[0].split("#")[1])
         .encodeABI(),
     };
     const res = confirmTransaction(params, {action: 'Revive', txt: 'You are about to revive player number #4', img: choosenPlayer.image, symbol: 'heart'})
@@ -92,7 +90,7 @@ const Graveyard = ({confirmTransaction, isAudio}) => {
           />
           <div className="revive-txt">
             <div>{`You choosed to revive player number #${
-              choosenPlayer.player.name.split("#")[1]
+              choosenPlayer.player[0].split("#")[1]
             }`}</div>
             <div>Are you sure?</div>
           </div>

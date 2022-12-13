@@ -116,10 +116,10 @@ const Overview = ({ isAudio }) => {
         );
       else newPlayersToShow = [];
     } else if (filter === "Dead")
-      newPlayersToShow = playersData.filter((player) => !player.player.alive);
+      newPlayersToShow = playersData.filter((player) => !player.player[4]);
     else {
       newPlayersToShow = playersData.filter(
-        (player) => player.player.playerType === filter
+        (player) => player.player[1] === filter
       );
     }
 

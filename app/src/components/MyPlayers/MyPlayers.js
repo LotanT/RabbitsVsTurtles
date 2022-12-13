@@ -32,9 +32,9 @@ const MyPlayers = ({height, closeFunc, top, left}) => {
     const filterPlayers = ()=>{
         if(filter === '') return myPlayers
         if(filter === 'dead'){
-            return myPlayers.filter(player=>!player.player.alive)
+            return myPlayers.filter(player=>!player.player[4])
         }
-        return myPlayers.filter(player=>player.player.playerType === filter)
+        return myPlayers.filter(player=>player.player[1] === filter)
     }
     if(!accounts || !accounts[0]) return
   return (
@@ -65,7 +65,7 @@ const MyPlayers = ({height, closeFunc, top, left}) => {
                     <img alt='' src={playerFrame}/>
                     <img className='my-player-img' alt='' src={player.image}/>
                     <div className='my-player-name'>
-                        <img alt='' src={player.player.playerType === 'Rabbit'? playerNameFrameBlue: playerNameFrameRed}/>
+                        <img alt='' src={player.player[1] === 'Rabbit'? playerNameFrameBlue: playerNameFrameRed}/>
                         <div className='my-player-id'>{`#${player.id}`}</div>
                     </div>
                 </div>
