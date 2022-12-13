@@ -1,10 +1,12 @@
 const express = require('express')
 const http = require('http')
 const cors = require('cors')
+const path = require('path')
 
 const app = express()
 app.use(express.json())
 app.use(cors())
+app.use(express.static('public'));
 
 const server = http.createServer(app)
 
@@ -34,13 +36,8 @@ startAllListeners()
 
 const port = process.env.PORT || 3001;
 
-app.use(express.static('public'));
 
-app.get('/**', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
- })
- 
 
 server.listen(port, ()=>{
-    console.log('server is running')
+    console.log(`server is running on port ${port}`)
 })
