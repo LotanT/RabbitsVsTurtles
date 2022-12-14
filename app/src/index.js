@@ -15,6 +15,26 @@ import { Buffer } from "buffer";
 import { Provider } from "react-redux";
 import { store } from "./features/store";
 
+// import {
+//   Web3ReactProvider,
+//   useWeb3React,
+//   UnsupportedChainIdError,
+// } from "@web3-react/core";
+// import {
+//   NoEthereumProviderError,
+//   UserRejectedRequestError as UserRejectedRequestErrorInjected,
+// } from "@web3-react/injected-connector";
+// import { UserRejectedRequestError as UserRejectedRequestErrorWalletConnect } from "@web3-react/walletconnect-connector";
+// import { Web3Provider } from "@ethersproject/providers";
+
+// import { useEagerConnect, useInactiveListener } from "../hooks";
+// import {
+//   injected,
+//   network,
+//   walletconnect,
+//   fortmatic,
+//   torus,
+// } from "../connectors";
 
 const connectors = [
   [injectedConnection.connector, injectedConnection.hooks],
