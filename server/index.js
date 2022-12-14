@@ -38,7 +38,9 @@ startAllListeners()
 
 const port = process.env.PORT || 3001;
 
-
+app.get('/**', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+})
 
 server.listen(port, ()=>{
     console.log(`server is running on port ${port}`)
