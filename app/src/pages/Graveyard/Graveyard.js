@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
-import { selectAllPlayers } from "../../features/playersSlice";
+import { getPlayersStatus, selectAllPlayers } from "../../features/playersSlice";
 import { useSelector } from "react-redux";
 import { selectAllInfo } from "../../features/infoSlice";
 import { Flip, toast } from "react-toastify";
@@ -20,6 +20,7 @@ const Graveyard = ({confirmTransaction, isAudio}) => {
   const { accounts } = useWeb3React();
   const revivePlayerCost = "500000000000000000000";
   const players = useSelector(selectAllPlayers)
+  const playersStatus = useSelector(getPlayersStatus)
   const info = useSelector(selectAllInfo)
   const audio = new Audio(require('../../assets/music/Illusory Realm - Graveyard.mp3'))
   audio.loop = true
@@ -72,11 +73,11 @@ const Graveyard = ({confirmTransaction, isAudio}) => {
     toast.info('Connect your wallet', {position: "bottom-left"})
   }
   };
-  // console.log(players, playersData);
+ 
   if(isLoading) return <div className="graveyard-background-small"> <img alt="" src={backgroundImg} style={{display: 'none'}} onLoad={() => setIsLoading(false)}/><div className="loader-container" style={{height: '35%'}}><div className="loader"></div></div></div>
   return (
     <div className="graveyard">
-      {activeStage === "choosePlayer" && !!players && !playersData.length && <div className="no-players-dead"><img alt="" src={require('../../assets/pic/revive-frame.png')}/><div>There are no dead players in the Graveyard.</div></div>}
+      {activeStage === "choosePlayer" && playersStatus === 'succeeded' && !playersData.length && <div className="no-players-dead"><img alt="" src={require('../../assets/pic/revive-frame.png')}/><div>There are no dead players in the Graveyard.</div></div>}
       {activeStage === "choosePlayer" && (
         <ChoosePlayer playersData={playersData} setChoosen={setChoosen} />
       )}
