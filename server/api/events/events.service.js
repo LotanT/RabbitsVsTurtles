@@ -5,7 +5,7 @@ const collectionName = "events";
 module.exports = {
   query,
   add,
-  addMany,
+  restartDB,
 };
 
 async function query(id) {
@@ -31,9 +31,10 @@ async function add(event) {
   }
 }
 
-async function addMany(events, id) {
+async function restartDB(events, id) {
   try {
     const collection = await dbService.getCollection(collectionName + id);
+    await collection.remove({})
     const addedEvent = await collection.insertMany(events);
     return addedEvent;
   } catch (err) {
@@ -42,7 +43,7 @@ async function addMany(events, id) {
   }
 }
 
-const docs = [
+const docse796 = [
   {
     address: "0x829a67EF339E6230FcfDbf3c8730fFBb0329e796",
     blockHash:
