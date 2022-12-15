@@ -34,10 +34,10 @@ startAllListeners();
 const port = process.env.PORT || 3001;
 
 const root = path.join(__dirname, "public");
-app.use(express.static(root));
+app.use(express.static('public'));
 
 app.get("*", (req, res) => {
-  res.sendFile("/index.html", { root });
+  res.sendFile("index.html", { root });
 });
 
 server.listen(port, () => {
