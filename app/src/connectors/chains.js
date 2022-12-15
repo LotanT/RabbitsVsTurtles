@@ -18,7 +18,7 @@ const CELO = {
   symbol: "CELO",
   decimals: 18,
 };
-
+console.log(process.env.REACT_APP_INFURAKEY);
 export const CHAINS = {
   1: {
     urls: [`https://mainnet.infura.io/v3/${process.env.REACT_APP_INFURAKEY}`],

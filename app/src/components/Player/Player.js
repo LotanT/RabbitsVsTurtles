@@ -5,7 +5,7 @@ import './player.css'
 const Player = ({player, onClickFunc, height, onHover}) => {
 
   const getStyle = (player) => {
-    if (player.player.playerType === "Turtle")
+    if (player.player[1] === "Turtle")
       return {
         background:
           "linear-gradient(96.47deg, #BF4040 0.9%, #CC6677 52.96%, #BF406A 98.8%)",
@@ -18,7 +18,6 @@ const Player = ({player, onClickFunc, height, onHover}) => {
   };
   return (
         <div
-          key={player.player.name}
           className="player-display"
           onClick={onClickFunc}
           onMouseEnter={onHover?()=>onHover(player):()=>{}}
@@ -29,7 +28,7 @@ const Player = ({player, onClickFunc, height, onHover}) => {
           <div
             className="player-display-name"
             style={getStyle(player)}
-          >{`#${player.player.name.split("#")[1]}`}</div>
+          >{`#${player.player[0].split("#")[1]}`}</div>
         </div>
       )
 }

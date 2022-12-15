@@ -228,7 +228,7 @@ const Shop = ({ confirmTransaction, isAudio }) => {
   const [choosenPlayer, setChoosenPlayer] = useState();
   const [choosenUpgrade, setChoosenUpgrade] = useState();
   const [playersData, setPlayersData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState({productFrame: true, background: true, frame: true});
   const { accounts } = useWeb3React();
   const players = useSelector(selectAllPlayers);
   const info = useSelector(selectAllInfo);
@@ -240,13 +240,13 @@ const Shop = ({ confirmTransaction, isAudio }) => {
   useEffect(() => {
     let filterPlayers = players.filter((player) => {
       if (choosenPlayer?.id === player.id) setChoosenPlayer(player);
-      return player.player.alive;
+      return player.player[4];
     });
     setPlayersData(filterPlayers);
   }, [players]);
 
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading({productFrame: true, background: true, frame: true})
     resetState()
   }, [type]);
 
@@ -295,11 +295,11 @@ const Shop = ({ confirmTransaction, isAudio }) => {
           info.web3.utils.toHex(Number(mintInfo.increaseAttackCost))
         );
         params.data = info.contract.methods
-          .increaseAttack(Number(choosenPlayer.player.name.split("#")[1]))
+          .increaseAttack(Number(choosenPlayer.player[0].split("#")[1]))
           .encodeABI();
         desc.action = "Increase Attack";
         desc.txt = `You are about to give player number #${
-          choosenPlayer.player.name.split("#")[1]
+          choosenPlayer.player[0].split("#")[1]
         } attack potion.`;
         desc.img = choosenPlayer.image;
         desc.symbol = products[shopType].products[0].productImg;
@@ -309,11 +309,11 @@ const Shop = ({ confirmTransaction, isAudio }) => {
           info.web3.utils.toHex(Number(mintInfo.increaseDefenseCost))
         );
         params.data = info.contract.methods
-          .increaseDefense(Number(choosenPlayer.player.name.split("#")[1]))
+          .increaseDefense(Number(choosenPlayer.player[0].split("#")[1]))
           .encodeABI();
         desc.action = "Increase Defence";
         desc.txt = `You are about to give player number #${
-          choosenPlayer.player.name.split("#")[1]
+          choosenPlayer.player[0].split("#")[1]
         } Defence potion.`;
         desc.img = choosenPlayer.image;
         desc.symbol = products[shopType].products[1].productImg;
@@ -323,11 +323,11 @@ const Shop = ({ confirmTransaction, isAudio }) => {
           info.web3.utils.toHex(Number(mintInfo.increaseStaminaCost))
         );
         params.data = info.contract.methods
-          .increaseStamina(Number(choosenPlayer.player.name.split("#")[1]))
+          .increaseStamina(Number(choosenPlayer.player[0].split("#")[1]))
           .encodeABI();
         desc.action = "Increase Stamina";
         desc.txt = `You are about to give player number #${
-          choosenPlayer.player.name.split("#")[1]
+          choosenPlayer.player[0].split("#")[1]
         } Stamina potion.`;
         desc.img = choosenPlayer.image;
         desc.symbol = products[shopType].products[2].productImg;
@@ -337,11 +337,11 @@ const Shop = ({ confirmTransaction, isAudio }) => {
           info.web3.utils.toHex(Number(mintInfo.increaseArmorCost))
         );
         params.data = info.contract.methods
-          .increaseArmor(Number(choosenPlayer.player.name.split("#")[1]))
+          .increaseArmor(Number(choosenPlayer.player[0].split("#")[1]))
           .encodeABI();
         desc.action = "Increase Armor";
         desc.txt = `You are about to give player number #${
-          choosenPlayer.player.name.split("#")[1]
+          choosenPlayer.player[0].split("#")[1]
         } Armor potion.`;
         desc.img = choosenPlayer.image;
         desc.symbol = products[shopType].products[3].productImg;
@@ -362,7 +362,7 @@ const Shop = ({ confirmTransaction, isAudio }) => {
   }
   };
 
-  if (isLoading)
+  if (isLoading.background || isLoading.frame || isLoading.productFrame)
     return (
       <div className="shop-background-small"
       style={
@@ -379,7 +379,19 @@ const Shop = ({ confirmTransaction, isAudio }) => {
           ?require(`../../assets/pic/shop-${shopType}-background.png`)
           :require(`../../assets/pic/shop-background.png`)}
           style={{ display: 'none' }}
-          onLoad={() => setIsLoading(false)}
+          onLoad={() => setIsLoading((prev=>{return{...prev,background: false}}))}
+        />
+        <img
+          alt=""
+          src={require(`../../assets/pic/frame.png`)}
+          style={{ display: 'none' }}
+          onLoad={() => setIsLoading((prev=>{return{...prev,frame: false}}))}
+        />
+        <img
+          alt=""
+          src={require(`../../assets/pic/product-frame.png`)}
+          style={{ display: 'none' }}
+          onLoad={() => setIsLoading((prev=>{return{...prev,productFrame: false}}))}
         />
         <div className="loader-container" style={{ height: "35%" }}>
           <div className="loader"></div>

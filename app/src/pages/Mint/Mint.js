@@ -86,7 +86,7 @@ const Mint = ({ confirmTransaction, mintInfo, isAudio }) => {
       };
   };
   
-  if(isLoading) return <div className="mint-background-small"><img alt="" src={rubbitPic} style={{opacity: '0'}}/><img alt="" src={turtlePic} style={{opacity: '0'}}/> <img alt="" src={backgroundImg} style={{display: 'none'}} onLoad={() => setIsLoading(false)}/><div className="loader-container" style={{height: '35%'}}><div className="loader"></div></div></div>
+  if(isLoading) return <div className="mint-background-small"><img alt="" src={rubbitPic} style={{display: 'none'}}/><img alt="" src={turtlePic} style={{opacity: '0'}}/> <img alt="" src={backgroundImg} style={{display: 'none'}} onLoad={() => setIsLoading(false)}/><div className="loader-container" style={{height: '35%'}}><div className="loader"></div></div></div>
   return (
     <div className="mint">
       {activeModal === "confirmation" && (

@@ -19,11 +19,13 @@ import armorBtn from "../../assets/pic/shield-shop-btn.png";
 import MyPlayers from "../MyPlayers/MyPlayers";
 import muteBtn from "../../assets/pic/sound-mute.png";
 import unmuteBtn from "../../assets/pic/sound-unmute.png";
+import Chat from "../Chat/Chat";
 
 const Footer = ({ isAudio, setIsAudio }) => {
   
   const [isNetwork, setIsNetwork] = useState(false);
   const [isMyWarriors, setIsMyWarriors] = useState(false);
+  const [isChat, setIsChat] = useState(false);
   const {accounts, chainId} = useWeb3React()
   const location = useLocation()
   const isDarkMode = useSelector(selectAllDarkMode)
@@ -74,12 +76,18 @@ const Footer = ({ isAudio, setIsAudio }) => {
           </Link>
         </div>
       </div>
-      <div className="footer-side right" onClick={() => setIsNetwork(true)}>
-        <div className="footer-network">
+      <div className="footer-side right">
+        <div className="footer-chat" onClick={() => setIsChat(true)}>
+          <img alt="" src={isAudio ? unmuteBtn : muteBtn} />
+        </div>
+        <div className="footer-network" onClick={() => setIsNetwork(true)}>
           <img alt="" src={goldFrame} />
           <div className="side-txt">{CHAINS[chainId]?.name}</div>
         </div>
       </div>
+      <div className="footer-chat-small" onClick={() => setIsChat(true)}>
+          <img alt="" src={isAudio ? unmuteBtn : muteBtn} />
+        </div>
       {isNetwork && (
         <div className="outside-click" onClick={() => setIsNetwork(false)}>
           <NetworksModal
@@ -96,6 +104,9 @@ const Footer = ({ isAudio, setIsAudio }) => {
           />
         </div>
       )}
+      {isChat && <div className="outside-click" onClick={() => setIsChat(false)}>
+      <Chat/>
+      </div>}
     </div>
   );
 };

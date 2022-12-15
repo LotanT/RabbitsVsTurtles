@@ -83,7 +83,6 @@ function App() {
   },[chainId])
 
   const initInfo = ()=>{
-    console.log(CHAINS[chainId].contractAddress);
     const web3 = new Web3(CHAINS[chainId].urls[0]);
     const web3ws = new Web3(new Web3.providers.WebsocketProvider(CHAINS[chainId].WSurls[0]));
     const contract = new web3.eth.Contract(abi.abi, CHAINS[chainId].contractAddress);
@@ -184,7 +183,6 @@ function App() {
       },
       fromBlock: 'latest',
     };
-    console.log(info.contractWS, chainId);
     if(emitter.current) emitter.current.removeAllListeners('data');
     emitter.current = info.contractWS.events.allEvents(options).on("data", (event) => eventAction(event));
     return ()=>{

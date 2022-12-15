@@ -41,7 +41,7 @@ const ChoosePlayer = ({ playersData, setChoosen }) => {
         else newPlayersToShow = []
     } else {
       newPlayersToShow = playersData.filter(
-        (player) => player.player.playerType === filter
+        (player) => player.player[1] === filter
       );
     }
     if (filter === "") newPlayersToShow = playersData;
@@ -58,7 +58,7 @@ const ChoosePlayer = ({ playersData, setChoosen }) => {
   };
 
   const getNameStyle = (player) => {
-    if (player.player.playerType === "Turtle")
+    if (player.player[1] === "Turtle")
       return {
         background:
           "linear-gradient(96.47deg, #BF4040 0.9%, #CC6677 52.96%, #BF406A 98.8%)",
@@ -97,7 +97,7 @@ const ChoosePlayer = ({ playersData, setChoosen }) => {
           className="player-name"
           style={getNameStyle(playersToShow[choosenPlayer])}
         >
-          {`#${playersToShow[choosenPlayer].player.name.split("#")[1]}`}
+          {`#${playersToShow[choosenPlayer].player[0].split("#")[1]}`}
         </div>
       </div>
       <div className="all-players">

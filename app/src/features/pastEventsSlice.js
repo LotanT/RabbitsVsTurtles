@@ -33,7 +33,6 @@ export const fetchPastEvents = createAsyncThunk(
     // console.log(JSON.stringify(allPastEvents));
     console.log(info.contractJSON.address);
     allPastEvents = await httpService.get(`events/${info.contractJSON.address}`)
-    // console.log(info.contractJSON.address);
     console.timeEnd("checkTime");
     allPastEvents.sort((a, b) => b.blockNumber - a.blockNumber);
     return allPastEvents;
