@@ -18,7 +18,7 @@ const Transactions = ({isDarkMode, setIsTransaction}) => {
     const info = useSelector(selectAllInfo)
     const pastEvents = useSelector(selectAllPastEvents)
     const players = useSelector(selectAllPlayers)
-    const {accounts} = useWeb3React()
+    const {account} = useWeb3React()
    
     useEffect(()=>{
       if(!pastEvents.length) store.dispatch(fetchPastEvents(info))
@@ -30,7 +30,7 @@ const Transactions = ({isDarkMode, setIsTransaction}) => {
 
     const getIfPlayerIsOwned = (playerId) =>{
       const player = players.find(player=>player.id === playerId)
-      return player?.owner === accounts[0]
+      return player?.owner === account
     }
 
     const getIcon = (eventName)=>{
@@ -62,10 +62,10 @@ const Transactions = ({isDarkMode, setIsTransaction}) => {
         switch (event.event) {
           case 'Transfer':
             if(event.returnValues.from === "0x0000000000000000000000000000000000000000"){
-             if(event.returnValues.to === accounts[0]) myTransaction.push({action: 'Transfer', txt: `Mint player number #${event.returnValues.tokenId} 🥳`})
+             if(event.returnValues.to === account) myTransaction.push({action: 'Transfer', txt: `Mint player number #${event.returnValues.tokenId} 🥳`})
             }else{
-              if(event.returnValues.to === accounts[0]) myTransaction.push({action: 'Transfer', txt: `You got player number #${event.returnValues.tokenId} from another user :)`})
-              if(event.returnValues.from === accounts[0]) myTransaction.push({action: 'Transfer', txt: `You pass player number #${event.returnValues.tokenId} to another user :)`})
+              if(event.returnValues.to === account) myTransaction.push({action: 'Transfer', txt: `You got player number #${event.returnValues.tokenId} from another user :)`})
+              if(event.returnValues.from === account) myTransaction.push({action: 'Transfer', txt: `You pass player number #${event.returnValues.tokenId} to another user :)`})
             }
             break;
           case 'Attacked':

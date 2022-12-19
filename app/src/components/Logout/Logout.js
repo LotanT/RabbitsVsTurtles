@@ -1,19 +1,21 @@
 import { useWeb3React } from "@web3-react/core";
 import React from "react";
+import useConnectiton from "../../connectors/hooks";
 
 import "./logout.css";
 import logoutImgLight from "../../assets/pic/logout-light.png";
 import logoutImgDark from "../../assets/pic/logout-dark.png";
 
 const Logout = ({ isDarkMode, setIsLogout }) => {
-  const { connector, accounts } = useWeb3React();
-
+  const { connector, account, deactivate } = useWeb3React();
+  const {Connect} = useConnectiton()
   async function disconnect() {
-    if (connector?.deactivate) {
-      connector.deactivate();
-    } else {
-      connector.resetState();
-    }
+    // if (connector?.deactivate) {
+    //   connector.deactivate();
+    // } else {
+    //   connector.resetState();
+    // }
+    await Connect('Network')
   }
 
   return (
@@ -31,9 +33,9 @@ const Logout = ({ isDarkMode, setIsLogout }) => {
         <img alt="" src={isDarkMode ? logoutImgDark : logoutImgLight} />
       </div>
       <div className="logout-account">
-        {String(accounts[0]).substring(0, 6) +
+        {String(account).substring(0, 6) +
           "..." +
-          String(accounts[0]).substring(38)}
+          String(account).substring(38)}
       </div>
       <div className="logout-txt">
         Oh no! You are leaving... <br />

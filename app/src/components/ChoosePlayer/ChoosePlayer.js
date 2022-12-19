@@ -12,7 +12,7 @@ import filterAllPlayers from "../../assets/pic/filter-all-players.png";
 import PlayersList from "../PlayersList/PlayersList";
 
 const ChoosePlayer = ({ playersData, setChoosen }) => {
-  const { accounts } = useWeb3React();
+  const { account } = useWeb3React();
   const [choosenPlayer, setChoosenPlayer] = useState(0);
   const [playersToShow, setPlayersToShow] = useState(playersData);
   const [filter, setFilter] = useState("");
@@ -28,15 +28,15 @@ const ChoosePlayer = ({ playersData, setChoosen }) => {
     }
     if (newFilter === "Turtle") setFilter("Turtle");
     if (newFilter === "Rabbit") setFilter("Rabbit");
-    if (newFilter === "Mine"  && accounts && accounts[0]) setFilter("Mine");
+    if (newFilter === "Mine"  && account) setFilter("Mine");
   };
 
   const filterPlayers = () => {
     let newPlayersToShow;
     if (filter === "Mine") {
-      if (accounts)
+      if (account)
         newPlayersToShow = playersData.filter(
-          (player) => player.owner === accounts[0]
+          (player) => player.owner === account
         );
         else newPlayersToShow = []
     } else {

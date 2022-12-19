@@ -25,7 +25,7 @@ import { selectAllDarkMode, switchDarkMode } from "../../features/darkModeSlice"
 
 const WalletDetails = ({balance, setIsWalletDetails, setIsLogout, setIsAudio, isAudio, setIsLeaderboard, counter, setCounter, isNotification, setActiveModal, setIsNotification }) => {
 
-  const { chainId, accounts } = useWeb3React();
+  const { chainId, account } = useWeb3React();
   const [isCopy, setIsCopy] = useState(false);
   const [isNetwork, setIsNetwork] = useState(false);
   const [isMyPlayers, setIsMyPlayers] = useState(false);
@@ -36,12 +36,12 @@ const WalletDetails = ({balance, setIsWalletDetails, setIsLogout, setIsAudio, is
 
 
   async function copyTextToClipboard() {
-    if (!accounts.length) return;
+    if (!account) return;
     setIsCopy(true);
     if ("clipboard" in navigator) {
-      return await navigator.clipboard.writeText(accounts[0]);
+      return await navigator.clipboard.writeText(account);
     } else {
-      return document.execCommand("copy", true, accounts[0]);
+      return document.execCommand("copy", true, account);
     }
   }
 
@@ -69,17 +69,17 @@ const WalletDetails = ({balance, setIsWalletDetails, setIsLogout, setIsAudio, is
           <div className="profile-pic">
             <img alt="" src="" />
           </div>
-          {accounts?.length ? (
+          {account? (
             <div>
-              {String(accounts[0]).substring(0, 6) +
+              {String(account).substring(0, 6) +
                 "..." +
-                String(accounts[0]).substring(38)}
+                String(account).substring(38)}
             </div>
           ) : (
             <div>Guest</div>
           )}
         </div>
-        {accounts?.length ? <div className="wallet-details-icons">
+        {account ? <div className="wallet-details-icons">
           <div
             className="wallet-diconnect"
             onClick={copyTextToClipboard}
@@ -100,7 +100,7 @@ const WalletDetails = ({balance, setIsWalletDetails, setIsLogout, setIsAudio, is
           </div>
           <a
             href={`https://polygonscan.com/address/${
-              accounts?.length ? accounts[0] : {}
+              account ? account : {}
             }`}
             target="_blank"
             className="wallet-transactions"
@@ -141,14 +141,14 @@ const WalletDetails = ({balance, setIsWalletDetails, setIsLogout, setIsAudio, is
         </div> : <div className="wallet-details-connect" onClick={()=>setActiveModal('connectModal')}>Connect Wallet</div>}
       </div>
       <div className="wallet-details-balance">
-        <div className="balance-matic">{accounts?.length ?`${balance} ${CHAINS[chainId].coin}`: balance?<div><div className="loader-small"></div> {CHAINS[chainId].coin} </div>:<div></div>}</div>
+        <div className="balance-matic">{account ?`${balance} ${CHAINS[chainId]?.coin}`: balance?<div><div className="loader-small"></div> {CHAINS[chainId]?.coin} </div>:<div></div>}</div>
       </div>
       <div className="wallet-details-footer">
         <div
           className="wallet-details-line"
           style={isDarkMode ? { border: "solid 1px #ffffff" } : {}}
         ></div>
-        <div className="wallet-details-actions" onClick={()=>{if(accounts?.length)setIsTransaction(!isTransaction)}}>
+        <div className="wallet-details-actions" onClick={()=>{if(account)setIsTransaction(!isTransaction)}}>
           <div className="wallet-details-action">Transactions</div>
           <div className="wallet-details-action-icons">
             <svg
@@ -182,7 +182,7 @@ const WalletDetails = ({balance, setIsWalletDetails, setIsLogout, setIsAudio, is
             </svg>
           </div>
         </div>
-        <div className="wallet-details-actions" onClick={()=>{if(accounts?.length)setIsMyPlayers(true)}}>
+        <div className="wallet-details-actions" onClick={()=>{if(account)setIsMyPlayers(true)}}>
           <div className="wallet-details-action">My Players</div>
           <div className="wallet-details-action-icons">
             <svg

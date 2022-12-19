@@ -11,7 +11,7 @@ import abi from './contracts/abi.json'
 import Web3 from "web3";
 import { CHAINS } from "./connectors/chains";
 import { useRef } from "react";
-import { Connect } from "./services/connect.wallet.service";
+import useConnection from './connectors/hooks'
 
 
 
@@ -34,51 +34,48 @@ import PlayerDetails from "./components/PlayerDetails/PlayerDetails";
 import ConnectModal from "./components/ConnectModal/ConnectModal";
 import FailToConnect from "./components/FailToConnect/FailToConnect";
 import { selectAllDarkMode } from "./features/darkModeSlice";
+import { socketService } from "./services/socket.service";
 
 function App() {
   const [params, setParams] = useState({});
-  const [error, setError] = useState({});
+  const [errorMsg, setErrorMsg] = useState({});
   const [activeModal, setActiveModal] = useState("");
   const [txHash, setTxHash] = useState("");
   const [chosenConnection, setChosenConnection] = useState("");
   const [isNotification, setIsNotification] = useState(true);
   const [balance, setBalance] = useState("");
   const [mintInfo, setMintInfo] = useState({ cost: "0", totalSupply: '0' });
-  const { provider, accounts, chainId, isActive } = useWeb3React();
+  const { connector, library, chainId, account, activate, deactivate, active, error } = useWeb3React();
   const [isAudio, setIsAudio] = useState(false)
   const info = useSelector(selectAllInfo);
   const dispatch = useDispatch()
   const emitter = useRef()
   const isDarkMode = useSelector(selectAllDarkMode)
+  const {Connect} = useConnection()
+  // console.log(window.ethereum);
   
   useEffect(() => {
-    if(!isActive) Connect('Network')
+    if(!active) Connect('Network')
   }, []);
 
   useEffect(() => {
-    if(!isActive) Connect('Network')
-    startEventListener();
+    // if(!active) Connect('Network')
     getCost();
     getTotal()
   }, [info]);
  
   useEffect(() => {
     setBalance("");
-    if (accounts?.length !== 0 && accounts) {
+    if (account) {
       getUserBalance();
     }
-  }, [accounts]);
+  }, [account]);
   
   useEffect(()=>{
-    if(!isActive) Connect('Network')
+    if(!active) Connect('Network')
     if(chainId === 137 || chainId === 5){
       initInfo()
       dispatch(removeAllPlayers())
-      store.dispatch(fetchPlayers(chainId));
-    }
-    setBalance("");
-    if (accounts?.length !== 0 && accounts) {
-      setTimeout(getUserBalance,5000)
     }
   },[chainId])
 
@@ -107,8 +104,9 @@ function App() {
 
   const sendTransaction = async () => {
     setActiveModal("waitingforConfirmation");
+    console.log(params.params, library);
     try {
-      const txHash = await provider.getSigner().sendTransaction(params.params);
+      const txHash = await library.eth.sendTransaction(params.params);
       setTxHash(txHash);
       getUserBalance();
       setActiveModal("submittedModal");
@@ -129,14 +127,14 @@ function App() {
     } catch (err) {
       console.log(err);
       err = JSON.parse(JSON.stringify(err)).reason;
-      setError(err);
+      setErrorMsg(err);
       setActiveModal("errorModal");
     }
   };
 
   const getUserBalance = async () => {
     try {
-      const balance = await info.web3.eth.getBalance(accounts[0]);
+      const balance = await info.web3.eth.getBalance(account);
       setBalance(Number(info.web3.utils.fromWei(balance)).toFixed(2));
     } catch (err) {
       console.log(err);
@@ -173,9 +171,7 @@ function App() {
       console.log(err);
     }
   }
-  const startEventListener = () => {
-  
-  };
+
   useEffect(()=>{
     let options = {
       filter: {
@@ -248,7 +244,7 @@ function App() {
             break;
         }
   }
-
+  console.log(account, chainId);
   return (
     <div className="App">
         <Header
@@ -307,7 +303,7 @@ function App() {
       )}
       {activeModal === "errorModal" && (
         <div className="outside-click" onClick={() => setActiveModal("")}>
-        <ErrorModal func={() => setActiveModal("")} error={error} />
+        <ErrorModal func={() => setActiveModal("")} error={errorMsg} />
         </div>
       )}
       {activeModal === "submittedModal" && (

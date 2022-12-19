@@ -229,7 +229,7 @@ const Shop = ({ confirmTransaction, isAudio }) => {
   const [choosenUpgrade, setChoosenUpgrade] = useState();
   const [playersData, setPlayersData] = useState(null);
   const [isLoading, setIsLoading] = useState({productFrame: true, background: true, frame: true});
-  const { accounts } = useWeb3React();
+  const { account } = useWeb3React();
   const players = useSelector(selectAllPlayers);
   const info = useSelector(selectAllInfo);
   const { type } = useParams();
@@ -281,11 +281,11 @@ const Shop = ({ confirmTransaction, isAudio }) => {
   };
 
   const buyUpgrade = async () => {
-    if(accounts && accounts.length){
+    if(account){
     let desc = {};
     const params = {
       to: info.contractJSON.address,
-      from: accounts[0],
+      from: account,
       value: "",
       data: "",
     };

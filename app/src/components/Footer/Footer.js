@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
 import {toast} from 'react-toastify'
 import { CHAINS } from "../../connectors/chains";
 import { useSelector } from "react-redux";
 import { selectAllDarkMode } from "../../features/darkModeSlice";
+import { socketService } from "../../services/socket.service";
+import { store } from "../../features/store";
+import { fetchPlayers } from "../../features/playersSlice";
+import { utilService } from "../../services/utils.service";
 
 import "./footer.css";
 import goldFrame from "../../assets/pic/header-account.png";
@@ -26,10 +30,48 @@ const Footer = ({ isAudio, setIsAudio }) => {
   const [isNetwork, setIsNetwork] = useState(false);
   const [isMyWarriors, setIsMyWarriors] = useState(false);
   const [isChat, setIsChat] = useState(false);
-  const {accounts, chainId} = useWeb3React()
+  const {account, chainId} = useWeb3React()
   const location = useLocation()
   const isDarkMode = useSelector(selectAllDarkMode)
-  
+  const [room, setRoom] = useState("General");
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  const randomId = useRef()
+  const [userData, setUserData] = useState({
+    name: `Anonymous`,
+    pic: "anonymous",
+    style: { color: "white" },
+  });
+
+  useEffect(()=>{
+    randomId.current = utilService.makeId(4)
+    setUserData(
+      {
+        name: `Anonymous(${randomId.current})`,
+        pic: "anonymous",
+        style: { color: "white" },
+      }
+    )
+  },[])
+
+  useEffect(() => {
+    if(chainId){
+      store.dispatch(fetchPlayers(chainId));
+      socketService.emit('join_chainId', chainId)
+      socketService.emit("online_user", userData);
+      socketService.on("online_users", (data) =>{
+        console.log(data);
+        setOnlineUsers(data.filter(data=>data.network === chainId));
+      })
+    }
+    return () => {
+      socketService.off("online_users");
+    };
+  },[chainId])
+
+  useEffect(()=>{
+    socketService.emit("online_user", userData);
+  },[userData])
+  // console.log(onlineUsers);
   return (
     <div className="footer" style={location.pathname === '/'? {display: 'none'} : {}}>
       <div className="footer-side">
@@ -39,7 +81,7 @@ const Footer = ({ isAudio, setIsAudio }) => {
         <div
           className="footer-my-warriors"
           onClick={() => {
-            if(accounts && accounts[0]){
+            if(account){
               setIsMyWarriors(true)
             }else{
               toast.info('Connect your wallet to see your warriors.')
@@ -51,7 +93,7 @@ const Footer = ({ isAudio, setIsAudio }) => {
         </div>
       </div>
       <div className="footer-center">
-        <img alt="" src={goldFrame} />
+        <img alt="" src={goldFrame} style={{width: '100%'}}/>
         <div className="footer-links">
           <Link to="/shop/hats">
             <img alt="" src={hatBtn} />
@@ -96,7 +138,7 @@ const Footer = ({ isAudio, setIsAudio }) => {
           />
         </div>
       )}
-      {isMyWarriors&& accounts && accounts[0] && (
+      {isMyWarriors&& account && (
         <div className="outside-click" onClick={() => setIsMyWarriors(false)}>
           <MyPlayers
             isDarkMode={isDarkMode}
@@ -105,7 +147,7 @@ const Footer = ({ isAudio, setIsAudio }) => {
         </div>
       )}
       {isChat && <div className="outside-click" onClick={() => setIsChat(false)}>
-      <Chat/>
+      <Chat userData={userData} setUserData={setUserData} room={room} setRoom={setRoom} onlineUsers={onlineUsers} randomId={randomId.current} closeFunc={() => setIsChat(false)}/>
       </div>}
     </div>
   );

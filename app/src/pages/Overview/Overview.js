@@ -32,7 +32,7 @@ const Overview = ({ isAudio }) => {
   const info = useSelector(selectAllInfo);
   const [filter, setFilter] = useState("");
   const playersData = useSelector(selectAllPlayers);
-  const { accounts, chainId } = useWeb3React();
+  const { account, chainId } = useWeb3React();
   const [playersToShow, setPlayersToShow] = useState([]);
   const pastEvents = useSelector(selectAllPastEvents);
   const dispatch = useDispatch();
@@ -110,9 +110,9 @@ const Overview = ({ isAudio }) => {
   const filterPlayers = () => {
     let newPlayersToShow;
     if (filter === "Mine") {
-      if (accounts)
+      if (account)
         newPlayersToShow = playersData.filter(
-          (player) => player.owner === accounts[0]
+          (player) => player.owner === account
         );
       else newPlayersToShow = [];
     } else if (filter === "Dead")

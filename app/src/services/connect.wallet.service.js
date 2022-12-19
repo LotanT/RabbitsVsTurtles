@@ -3,7 +3,7 @@ import { getConnection } from "../connectors/utils";
 export const Connect = async (connectionName, chainId) => {
     if(!chainId) chainId = 137;
     const connection = getConnection(connectionName);
-    try{ 
+    try{
       if(connection.connector.connectEagerly) await connection.connector.connectEagerly(chainId)
       await connection.connector.activate(chainId);
     } catch (err){

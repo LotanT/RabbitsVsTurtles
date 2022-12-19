@@ -32,7 +32,7 @@ const Arena = ({ confirmTransaction, isAudio }) => {
   });
   const [attacking, setAttacking] = useState(false);
   const [filter, setFilter] = useState("");
-  const { accounts } = useWeb3React();
+  const { account } = useWeb3React();
   const players = useSelector(selectAllPlayers);
   const info = useSelector(selectAllInfo);
   const audio = new Audio(
@@ -71,10 +71,10 @@ const Arena = ({ confirmTransaction, isAudio }) => {
     let playersToShow = playersData.filter(
       (player) => player.player[1] === onChoosePlayer
     );
-    if (accounts?.length) {
+    if (account) {
       if (filter === "Mine")
         playersToShow = playersToShow.filter(
-          (player) => player.owner === accounts[0]
+          (player) => player.owner === account
         );
     }
     return playersToShow;
@@ -90,7 +90,7 @@ const Arena = ({ confirmTransaction, isAudio }) => {
   };
 
   const attackPlayer = async () => {
-    if (accounts && accounts[0]) {
+    if (account) {
       if (!choosenRabbit && !choosenTurtle) {
         toast.info("Choose Players to Attack", {
           position: "bottom-center",
@@ -135,7 +135,7 @@ const Arena = ({ confirmTransaction, isAudio }) => {
       desc.txt = `You are about to attack player number #${victim} with player number #${attack}`;
       const params = {
         to: info.contractJSON.address,
-        from: accounts[0],
+        from: account,
         data: info.contract.methods.attackPlayer(attack, victim).encodeABI(),
       };
       let res = await confirmTransaction(params, desc);
@@ -159,6 +159,10 @@ const Arena = ({ confirmTransaction, isAudio }) => {
     return (
       <div className="arena-background-small">
         {" "}
+        <img alt="" src={require("../../assets/pic/shield-right.png")} style={{ display: "none" }}/>
+        <img alt="" src={require("../../assets/pic/shield-left.png")} style={{ display: "none" }}/>
+        <img alt="" src={require("../../assets/pic/sword-left.png")} style={{ display: "none" }}/>
+        <img alt="" src={require("../../assets/pic/sword-right.png")} style={{ display: "none" }}/>
         <img
           alt=""
           src={require("../../assets/pic/arena-background.png")}

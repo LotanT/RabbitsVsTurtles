@@ -2,46 +2,70 @@ import React from "react";
 
 import "./network-modal.css";
 import polygonIcon from "../../assets/pic/polygon-symbol.png";
-import etheriumIcon from "../../assets/pic/etherium-icon.png";
+import etheriumIcon from "../../assets/pic/ethereum-icon.png";
 import optimismIcon from "../../assets/pic/optimism-icon.png";
 import arbitrumIcon from "../../assets/pic/arbitrum-icon.png";
 import celoIcon from "../../assets/pic/celo-icon.png";
 import gorliIcon from "../../assets/pic/gorli-icon.png";
 import { useWeb3React } from "@web3-react/core";
 import { toast } from "react-toastify";
+import { useNetwork, ChainId } from "@thirdweb-dev/react";
+import { switchNetwork as switchNet} from "../../connectors/hooks";
+import { useSelector } from "react-redux";
+import { selectAllInfo } from "../../features/infoSlice";
 
-const NetworksModal = ({ isDarkMode, closeFunc, top, height, right, width }) => {
-  const { chainId, connector } = useWeb3React();
-  
+const NetworksModal = ({
+  isDarkMode,
+  closeFunc,
+  top,
+  height,
+  right,
+  width,
+}) => {
+  const { chainId, connector, activate, account } = useWeb3React();
+  const info = useSelector(selectAllInfo)
+  const [,switchNetwork] = useNetwork();
+
+  // console.log(switchNetwork);
+
   const changeNetwork = async (newChainId) => {
-    try{
-      connector.activate(newChainId)
-    }catch(err){
+    console.log(connector, account);
+    try {
+      if (!account) {
+        connector.currentChainId = newChainId;
+        console.log(connector);
+        activate(connector);
+      } else {
+        switchNetwork(newChainId)
+      }
+      // switchNet(newChainId, info.web3)
+    } catch (err) {
       console.log(err);
-      toast.info(err.message)
+      toast.info(err.message);
     }
-  }
+  };
 
-  const getStyle = ()=>{
-    const style = {}
-    if(isDarkMode){
-      style.background = "linear-gradient(225.23deg, #0F0C29 -3.27%, #0F0C29 -3.26%, #302B63 47.48%, #24243E 103.26%"
-      style.color = "#ffffff"
+  const getStyle = () => {
+    const style = {};
+    if (isDarkMode) {
+      style.background =
+        "linear-gradient(225.23deg, #0F0C29 -3.27%, #0F0C29 -3.26%, #302B63 47.48%, #24243E 103.26%";
+      style.color = "#ffffff";
     }
-    if(height){
-      style.height = height
-      style.right = right
-      style.top = top
-      style.width = width
+    if (height) {
+      style.height = height;
+      style.right = right;
+      style.top = top;
+      style.width = width;
     }
-    return style
-  }
+    return style;
+  };
 
   return (
     <div
       className="network-modal"
       style={getStyle()}
-      onClick={(e)=>e.stopPropagation()}
+      onClick={(e) => e.stopPropagation()}
     >
       <div className="exit-icon" onClick={closeFunc}>
         <svg
@@ -79,7 +103,7 @@ const NetworksModal = ({ isDarkMode, closeFunc, top, height, right, width }) => 
           )}
         </div>
       </div>
-      <div className="network-modal-name" onClick={()=>changeNetwork(137)}>
+      <div className="network-modal-name" onClick={() => changeNetwork(137)}>
         <div className="network-icon">
           <img alt="" src={polygonIcon} />
         </div>
@@ -167,7 +191,7 @@ const NetworksModal = ({ isDarkMode, closeFunc, top, height, right, width }) => 
           )}
         </div>
       </div>
-      <div className="network-modal-name" onClick={()=>changeNetwork(5)}>
+      <div className="network-modal-name" onClick={() => changeNetwork(5)}>
         <div className="network-icon">
           <img alt="" src={gorliIcon} />
         </div>

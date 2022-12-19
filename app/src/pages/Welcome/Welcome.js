@@ -21,14 +21,14 @@ const Welcome = ({isAudio, setIsAudio}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeModal, setActiveModal] = useState('welcome')
   const [chosenConnection, setChosenConnection] = useState('')
-  const {accounts} = useWeb3React();
+  const {account} = useWeb3React();
   let navigate = useNavigate();
   const audio = new Audio(require('../../assets/music/Fallen Leaves - Openning.mp3'))
   audio.loop = true
 
   useEffect(()=>{
-    if(accounts && accounts[0]) navigate('/map')
-  },[accounts, navigate])
+    if(account) navigate('/map')
+  },[account, navigate])
 
   useEffect(()=>{
     if(isAudio) audio.play()

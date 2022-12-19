@@ -17,7 +17,7 @@ const Graveyard = ({confirmTransaction, isAudio}) => {
   const [activeStage, setActiveStage] = useState("choosePlayer");
   const [playersData, setPlayersData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { accounts } = useWeb3React();
+  const { account } = useWeb3React();
   const revivePlayerCost = "500000000000000000000";
   const players = useSelector(selectAllPlayers)
   const playersStatus = useSelector(getPlayersStatus)
@@ -52,10 +52,10 @@ const Graveyard = ({confirmTransaction, isAudio}) => {
   };
 
   const revivePlayer = async () => {
-    if(accounts && accounts[0]){
+    if(account){
     const params = {
       to: info.contractJSON.address,
-      from: accounts[0],
+      from: account,
       value: String(info.web3.utils.toHex(Number(revivePlayerCost))),
       data: info.contract.methods
         .revivePlayer(choosenPlayer.player[0].split("#")[1])

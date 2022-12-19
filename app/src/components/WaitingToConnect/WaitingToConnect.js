@@ -6,13 +6,13 @@ import exitIcon from "../../assets/pic/exit-icon.png";
 
 const WaitingToConnect = ({closeFunction,header,subHeader,orangetxt,footer,loadingUp = false}) => {
 
-  const {accounts} = useWeb3React()
+  const {account} = useWeb3React()
 
   useEffect(()=>{
-    if(accounts){
-      if(accounts[0] && footer) closeFunction()
+    if(account){
+      if(account && footer) closeFunction()
     } 
-  },[accounts])
+  },[account])
 
   return (
     <div className='waiting-connect'>

@@ -20,12 +20,12 @@ const MyPlayers = ({height, closeFunc, top, left}) => {
     const [myPlayers, setMyPlayers] = useState([])
     const [filter, setFilter] = useState('')
     const players = useSelector(selectAllPlayers)
-    const {accounts} = useWeb3React()
+    const {account} = useWeb3React()
     const dispath = useDispatch()
 
     useEffect(()=>{
         let myPlayers
-        if(accounts && accounts[0]) myPlayers = players.filter(player=>player.owner === accounts[0])
+        if(account) myPlayers = players.filter(player=>player.owner === account)
         setMyPlayers(myPlayers)
     },[players])
 
@@ -36,7 +36,8 @@ const MyPlayers = ({height, closeFunc, top, left}) => {
         }
         return myPlayers.filter(player=>player.player[1] === filter)
     }
-    if(!accounts || !accounts[0]) return
+    
+    if(!account) return
   return (
     <div className='my-players' onClick={e=>e.stopPropagation()} style={height?{height: height, top: top, left: left} : {}}>
         <div className='my-players-header'>

@@ -1,5 +1,6 @@
 import React from "react";
-
+import { useWeb3React } from "@web3-react/core";
+import { getConnectorByName } from "../../connectors/hooks";
 
 import "./concect-modal.css";
 
@@ -7,17 +8,26 @@ import metamaskIcon from "../../assets/pic/logos_metamask-icon.png";
 import coinbaseWalletIcon from "../../assets/pic/coinbase-icon.png";
 import walletConnectIcon from "../../assets/pic/walletconnect-icon.png";
 import exitIcon from "../../assets/pic/exit-icon.png";
-import { Connect } from "../../services/connect.wallet.service";
-import { useWeb3React } from "@web3-react/core";
+import useConnect from "../../connectors/hooks";
 
 const ConnectModal = ({ setActiveModal, setChosenConnection }) => {
-  const {chainId} = useWeb3React()
-
+  const {chainId, error, activate} = useWeb3React()
+  const {Connect} = useConnect()
   const connectToWallet = async (connectionName) => {
     setChosenConnection(connectionName);
     setActiveModal("waitingToConnect");
-    const res = await Connect(connectionName, chainId)
-    if(res) setActiveModal("failToConnect");
+    const connection = getConnectorByName(connectionName)
+    console.log(connection);
+    try{
+      activate(connection)
+      // await Connect(connectionName, chainId)
+    }catch(err){
+      console.log(err);
+    }
+    if(error) {
+      console.log(error);
+      setActiveModal("failToConnect");
+    }
   }
 
   return (
@@ -54,6 +64,15 @@ const ConnectModal = ({ setActiveModal, setChosenConnection }) => {
           }}
         >
           <div className="modal-link-txt">WalletConnect</div>
+          <div className="modal-link-img"><img alt="" src={walletConnectIcon} /></div>
+        </div>
+        <div
+          className="modal-link"
+          onClick={() => {
+            connectToWallet("Torus");
+          }}
+        >
+          <div className="modal-link-txt">Torus</div>
           <div className="modal-link-img"><img alt="" src={walletConnectIcon} /></div>
         </div>
         <div className="modal-link-footer">

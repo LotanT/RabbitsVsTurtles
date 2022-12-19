@@ -3,7 +3,7 @@ import React from 'react'
 import './fail-to-connect.css'
 import exitIcon from '../../assets/pic/exit-icon.png'
 import errorIcon from '../../assets/pic/error-icon.png'
-import { Connect } from '../../services/connect.wallet.service'
+import {Connect} from '../../services/connect.wallet.service'
 
 const FailToConnect = ({setActiveModal,chosenConnection}) => {
 

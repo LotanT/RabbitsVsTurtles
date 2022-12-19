@@ -6,6 +6,8 @@ import pastEventsReducer from './pastEventsSlice'
 import playerReducer from './playerToShowSlice'
 import eventsRducer from './eventsSlice'
 import darkModeRducer from './darkModeSlice'
+import connectionNameRducer from './connectionNameSlice'
+import chatReducer from './chatSlice'
 
 export const store = configureStore({
     reducer: {
@@ -14,6 +16,8 @@ export const store = configureStore({
         pastEvents: pastEventsReducer,
         player: playerReducer,
         events: eventsRducer,
-        darkMode: darkModeRducer
+        darkMode: darkModeRducer,
+        connectionName : connectionNameRducer,
+        chat: chatReducer
     }
 })

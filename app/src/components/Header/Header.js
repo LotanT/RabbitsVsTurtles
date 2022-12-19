@@ -11,7 +11,7 @@ import heart from "../../assets/pic/btn-heart.png";
 import swords from "../../assets/pic/btn-swords.png";
 import flags from "../../assets/pic/btn-flags.png";
 import logo from "../../assets/pic/game-logo.png";
-import account from "../../assets/pic/header-account.png";
+import accountImg from "../../assets/pic/header-account.png";
 import leaderboardIcon from "../../assets/pic/leader-board-icon.png";
 import accountGuest from "../../assets/pic/header-account-guest.png";
 import notificationIcon from "../../assets/pic/notification-icon.png";
@@ -28,7 +28,7 @@ const Header = ({ setActiveModal, balance, setIsNotification, isNotification, is
   const [isWalletDetails, setIsWalletDetails] = useState(false);
   const [isEvents, setIsEvents] = useState(false);
   const [isLeaderboard, setIsLeaderboard] = useState(false);
-  const { accounts } = useWeb3React();
+  const { account } = useWeb3React();
   const [isLogout, setIsLogout] = useState(false);
   const [counter, setCounter] = useState(-1);
   const [openLinks, setOpenLinks] = useState(true);
@@ -46,8 +46,8 @@ const Header = ({ setActiveModal, balance, setIsNotification, isNotification, is
   },[isEvents])
 
   const getLightingStyle = () => {
-    if(accounts && accounts.length){
-      if(!players.some(player=>player.owner === accounts[0])){
+    if(account){
+      if(!players.some(player=>player.owner === account)){
         return 'glowing-lighting'
       }
     }
@@ -80,7 +80,7 @@ const Header = ({ setActiveModal, balance, setIsNotification, isNotification, is
         <div
           className="header-account-container"
           onClick={
-            // accounts?.length
+            // account
             //   ?
                () => {
                 getUserBalance()
@@ -88,12 +88,12 @@ const Header = ({ setActiveModal, balance, setIsNotification, isNotification, is
               // : () => setActiveModal("connectModal")
           }
         >
-          <img className="header-fullscreen" alt="" src={accounts?.length ? account : accountGuest} />
-          <div className="header-fullscreen" style={!accounts?.length ? { color: "white" } : {}}>
-            {accounts?.length
-              ? String(accounts[0]).substring(0, 6) +
+          <img className="header-fullscreen" alt="" src={account ? accountImg : accountGuest} />
+          <div className="header-fullscreen" style={!account ? { color: "white" } : {}}>
+            {account
+              ? String(account).substring(0, 6) +
                 "..." +
-                String(accounts[0]).substring(38)
+                String(account).substring(38)
               : `Connect Wallet`}
           </div>
           <div className="header-smallscreen"><img alt="" src={walletIcon}/></div>
