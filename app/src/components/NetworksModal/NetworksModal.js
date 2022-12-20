@@ -36,7 +36,9 @@ const NetworksModal = ({
         console.log(connector);
         activate(connector);
       } else {
-        switchNetwork(newChainId)
+        console.log(switchNetwork);
+        let connectorActive = await connector.activate(137)
+        console.log(connectorActive);
       }
       // switchNet(newChainId, info.web3)
     } catch (err) {

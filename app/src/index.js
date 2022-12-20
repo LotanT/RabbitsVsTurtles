@@ -40,7 +40,7 @@ window.Buffer = window.Buffer || Buffer;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <ThirdwebProvider>
     <Provider store={store}>
       <Web3ReactProvider getLibrary={getLibrary}>
@@ -50,7 +50,7 @@ root.render(
       </Web3ReactProvider>
     </Provider>
     </ThirdwebProvider>
-  // </React.StrictMode>
+ </React.StrictMode>
 );
 
 reportWebVitals();

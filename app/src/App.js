@@ -72,7 +72,7 @@ function App() {
   }, [account]);
   
   useEffect(()=>{
-    if(!active) Connect('Network')
+    // if(!active) Connect('Network')
     if(chainId === 137 || chainId === 5){
       initInfo()
       dispatch(removeAllPlayers())

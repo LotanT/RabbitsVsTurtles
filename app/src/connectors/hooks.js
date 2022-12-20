@@ -39,6 +39,7 @@ function useConnectiton() {
       console.log(connectionName);
       const connectorToConnect = getConnectorByName(connectionName);
       console.log(chainId, connectorToConnect);
+      // connectorToConnect.changeChainId(137)
       await activate(connectorToConnect);
     },
   };

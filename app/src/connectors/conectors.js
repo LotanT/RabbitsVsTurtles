@@ -34,7 +34,7 @@ export const coinbaseWallet = new WalletLinkConnector({
 });
 
 export const torus = new TorusConnector({
-  chainId: 1,
+  chainId: 137,
 })
 
 // export const ledger = new LedgerConnector({ chainId: 1, url: RPC_URLS[1], pollingInterval: POLLING_INTERVAL })
