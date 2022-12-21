@@ -52,7 +52,7 @@ function connectSockets(http) {
 
     socket.on("send_message", (data) => {
       chatService.add(socket.network, data);
-      socket.to(data.room).emit("receive_message", data);
+      socket.to(socket.network).emit("receive_message", data);
     });
 
     socket.on("disconnect", () => {

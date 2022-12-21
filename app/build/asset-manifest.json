@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.c2a67da2.css",
-    "main.js": "/static/js/main.875c42be.js",
+    "main.js": "/static/js/main.b566da41.js",
     "static/media/Adventure - Store.mp3": "/static/media/Adventure - Store.524b270a9d12e0846a6a.mp3",
     "static/media/game-map.png": "/static/media/game-map.4fb864312b3eabba0217.png",
     "static/media/Slayer-Overview.mp3": "/static/media/Slayer-Overview.c537163f635bf0dc74fb.mp3",
@@ -88,10 +88,10 @@
     "static/media/wallet-btn.png": "/static/media/wallet-btn.233f3e94ce4ac6ac7b69.png",
     "index.html": "/index.html",
     "main.c2a67da2.css.map": "/static/css/main.c2a67da2.css.map",
-    "main.875c42be.js.map": "/static/js/main.875c42be.js.map"
+    "main.b566da41.js.map": "/static/js/main.b566da41.js.map"
   },
   "entrypoints": [
     "static/css/main.c2a67da2.css",
-    "static/js/main.875c42be.js"
+    "static/js/main.b566da41.js"
   ]
 }

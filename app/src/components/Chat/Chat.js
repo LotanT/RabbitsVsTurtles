@@ -71,7 +71,7 @@ const Chat = ({
 
   const sendMessage = async () => {
     if (currentMsg !== "") {
-      if (isAllowToSend) {
+      if (isAllowToSend()) {
         const messageData = {
           room,
           name: userData.name,
@@ -105,18 +105,18 @@ const Chat = ({
     }
     if (room === "Rabbit") {
       if (myPlayers.some((player) => player.player[1] === room)) {
-        if (userData.pic === "rabbit") return true;
-        else toast.info(`You need to choose your Rabbit to send message`);
+        if (userData.name.split(' ')[0] === "Rabbit") return true;
+        else toast.info(`You need to choose your Rabbit warrior to send message`);
       } else {
-        toast.info(`You need a Rabbit warrior to send message`);
+        toast.info(`You need to have Rabbit warrior to send message`);
       }
     }
     if (room === "Turtle") {
       if (myPlayers.some((player) => player.player[1] === room)) {
-        if (userData.pic === "turtle") return true;
-        else toast.info(`You need to choose your Rabbit to send message`);
+        if (userData.name.split(' ')[0] === "Turtle") return true;
+        else toast.info(`You need to choose your Turtle warrior to send message`);
       } else {
-        toast.info(`You need a Rabbit warrior to send message`);
+        toast.info(`You need to have Turtle warrior to send message`);
       }
     }
     return false;
