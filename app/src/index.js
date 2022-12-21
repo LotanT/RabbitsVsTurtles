@@ -27,7 +27,7 @@ window.Buffer = window.Buffer || Buffer;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
       <Web3ReactProvider connectors={connectors}>
         <HashRouter>
@@ -35,7 +35,7 @@ root.render(
         </HashRouter>
       </Web3ReactProvider>
     </Provider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 reportWebVitals();

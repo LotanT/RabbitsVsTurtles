@@ -59,14 +59,14 @@ function App() {
     if(!isActive) Connect('Network')
     startEventListener();
     getCost();
-    getTotal()
+    getTotal();
+    setBalance("");
+    getUserBalance()
   }, [info]);
  
   useEffect(() => {
     setBalance("");
-    if (accounts?.length !== 0 && accounts) {
-      getUserBalance();
-    }
+    getUserBalance();
   }, [accounts]);
   
   useEffect(()=>{
@@ -75,10 +75,6 @@ function App() {
       initInfo()
       dispatch(removeAllPlayers())
       store.dispatch(fetchPlayers(chainId));
-    }
-    setBalance("");
-    if (accounts?.length !== 0 && accounts) {
-      setTimeout(getUserBalance,5000)
     }
   },[chainId])
 
@@ -135,13 +131,15 @@ function App() {
   };
 
   const getUserBalance = async () => {
-    try {
-      const balance = await info.web3.eth.getBalance(accounts[0]);
-      setBalance(Number(info.web3.utils.fromWei(balance)).toFixed(2));
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    if (accounts?.length !== 0 && accounts[0]){
+      try {
+        const balance = await info.web3.eth.getBalance(accounts[0]);
+        setBalance(Number(info.web3.utils.fromWei(balance)).toFixed(2));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+  }
 
   const getCost = async () => {
     const params = {
@@ -254,7 +252,6 @@ function App() {
         <Header
           setActiveModal={setActiveModal}
           balance={balance}
-          getUserBalance={getUserBalance}
           setIsNotification={setIsNotification}
           isNotification={isNotification}
           isAudio={isAudio}

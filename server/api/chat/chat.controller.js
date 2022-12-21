@@ -7,7 +7,8 @@ module.exports = {
 
 async function getAllChats(req, res){
     try{
-        const chats = await chatService.query(req.query)
+        const {id} = req.params
+        const chats = await chatService.query(id)
         res.send(chats)
     } catch (err) {
         console.log(err);

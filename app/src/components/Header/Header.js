@@ -24,7 +24,7 @@ import Events from "../Events/Events";
 import Leaderboard from "../Leaderboard/Leaderboard";
 import { selectAllDarkMode } from "../../features/darkModeSlice";
 
-const Header = ({ setActiveModal, balance, setIsNotification, isNotification, isAudio, setIsAudio, getUserBalance }) => {
+const Header = ({ setActiveModal, balance, setIsNotification, isNotification, isAudio, setIsAudio }) => {
   const [isWalletDetails, setIsWalletDetails] = useState(false);
   const [isEvents, setIsEvents] = useState(false);
   const [isLeaderboard, setIsLeaderboard] = useState(false);
@@ -79,14 +79,7 @@ const Header = ({ setActiveModal, balance, setIsNotification, isNotification, is
       <div className="header-account">
         <div
           className="header-account-container"
-          onClick={
-            // accounts?.length
-            //   ?
-               () => {
-                getUserBalance()
-                setIsWalletDetails(!isWalletDetails)}
-              // : () => setActiveModal("connectModal")
-          }
+          onClick={() =>setIsWalletDetails(!isWalletDetails)}
         >
           <img className="header-fullscreen" alt="" src={accounts?.length ? account : accountGuest} />
           <div className="header-fullscreen" style={!accounts?.length ? { color: "white" } : {}}>

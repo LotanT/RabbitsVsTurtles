@@ -159,6 +159,10 @@ const Arena = ({ confirmTransaction, isAudio }) => {
     return (
       <div className="arena-background-small">
         {" "}
+        <img alt="" src={require("../../assets/pic/shield-right.png")} style={{ display: "none" }}/>
+        <img alt="" src={require("../../assets/pic/shield-left.png")} style={{ display: "none" }}/>
+        <img alt="" src={require("../../assets/pic/sword-left.png")} style={{ display: "none" }}/>
+        <img alt="" src={require("../../assets/pic/sword-right.png")} style={{ display: "none" }}/>
         <img
           alt=""
           src={require("../../assets/pic/arena-background.png")}

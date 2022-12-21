@@ -105,4 +105,10 @@
   .footer-chat-small{
     display: none;
   }
+  .footer-center{
+    width: 370px;
+  }
+  .footer-links{
+    padding: 0% 39px;
+  }
 }
