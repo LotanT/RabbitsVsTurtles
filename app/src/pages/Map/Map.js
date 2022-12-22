@@ -26,7 +26,17 @@ const Map = ({isAudio}) => {
   if(isLoading) return <div className="map-background-small"> <img alt="" src={require("../../assets/pic/game-map.png")} style={{display: 'none'}} onLoad={() => setIsLoading(false)}/><div className="loader-container" style={{height: '35%'}}><div className="loader"></div></div></div>
   return (
     <div className='map'>
-       
+      <div>
+       <div className='map-rabbit-jumping'><img alt='' src={require('../../assets/pic/gif-giphy.gif')}/></div>
+       <div className='map-rabbit-jumping2'><img alt='' src={require('../../assets/pic/gif-giphy.gif')}/></div>
+       <div className='map-turtle-walking'><img alt='' src={require('../../assets/pic/gif-turtle-walking.gif')}/></div>
+       <div className='map-turtle-dancing'><img alt='' src={require('../../assets/pic/gif-turtle-dance.gif')}/></div>
+       <div className='map-smoke-many1'><img alt='' src={require('../../assets/pic/gif-smoke-many.gif')}/></div>
+       <div className='map-smoke-many2'><img alt='' src={require('../../assets/pic/gif-smoke-many.gif')}/></div>
+       <div className='map-smoke-many3'><img alt='' src={require('../../assets/pic/gif-smoke-many.gif')}/></div>
+       <div className='map-dolphine1'><img alt='' src={require('../../assets/pic/gif-dolphine-jump.gif')}/></div>
+       <div className='map-dolphine2'><img alt='' src={require('../../assets/pic/gif-dolphine-small-jump.gif')}/></div>
+      </div>
     </div>
   )
 }

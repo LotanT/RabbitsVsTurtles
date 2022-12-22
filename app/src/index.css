@@ -95,6 +95,7 @@ img {
 }
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 .loading-page {

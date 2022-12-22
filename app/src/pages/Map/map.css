@@ -1,10 +1,12 @@
 .map {
   background: #c0c0c0 url("../../assets/pic/game-map.png");
-  height: 100vh;
-  width: 100vw;
-  background-position: 50% !important;
+  /* height: 100vh; */
+  min-width: 1280px;
+  /* background-position: 50% !important; */
   background-size: cover !important;
-  background-size: 100% 100%;
+  /* background-size: 100% 100%; */
+  position: relative;
+  aspect-ratio: 1.33333;
 }
 .map-background-small{
   background: #c0c0c0 url("../../assets/pic/game-map-small.png");
@@ -15,8 +17,98 @@
   background-size: 100% 100%;
 }
 
-.move-to-mint{
-  width: 200px;
-  height: 200px;
-  background-color: azure;
+.map-rabbit-jumping{
+  height: 2%;
+  position: absolute;
+  top: 49%;
+  left: 67%;
 }
+.map-rabbit-jumping2{
+  height: 1%;
+  position: absolute;
+  top: 84%;
+  left: 41%;
+}
+.map-turtle-walking{
+  height: 4%;
+  position: absolute;
+  top: 23.5%;
+  left: 56%;
+  animation: walking-turtle 7.3s ease-in-out infinite;
+}
+@keyframes walking-turtle {
+  0%{
+      left: 56%;
+  }
+  40%, 50%{
+      left: 52%;
+      transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+    left: 56%
+  }
+}
+.map-turtle-dancing{
+  height: 2%;
+  position: absolute;
+  top: 60.5%;
+  left: 31.07%;
+}
+.map-smoke-many1{
+  height: 2%;
+  position: absolute;
+  top: 52.5%;
+  left: 54.07%;
+}
+.map-smoke-many2{
+  height: 2%;
+  position: absolute;
+  top: 54.4%;
+  left: 53.8%;
+}
+.map-smoke-many3{
+  height: 4%;
+  position: absolute;
+  top: 38.6%;
+  left: 29.4%;
+}
+.map-fire-smoke{
+  height: 4%;
+  position: absolute;
+  top: 38.6%;
+  left: 29.4%;
+}
+.map-dolphine1{
+  height: 3%;
+  position: absolute;
+  top: 34.6%;
+  left: 71.4%;
+}
+.map-dolphine2{
+  height: 2%;
+  position: absolute;
+  top: 84.2%;
+  left: 17.4%;
+  /* animation: jumping-dolphine 2.1s ease-in-out infinite; */
+}
+@keyframes jumping-dolphine {
+  0%,45%{
+      left: 14.4%;
+  }
+  55%, 100%{
+    left: 16%;
+  } 
+  33%, 50%{
+    left: 16%
+  }
+  67%, 100%{
+    left: 17.5%
+  } 
+}
+/* .map-fish1{
+  height: 3%;
+  position: absolute;
+  top: 60%;
+  left: 35.4%;
+} */
