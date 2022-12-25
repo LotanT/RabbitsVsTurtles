@@ -1,0 +1,284 @@
+.map {
+  background: #c0c0c0 url("../../assets/pic/game-map.png");
+  /* height: 100vh; */
+  min-width: 1280px;
+  /* background-position: 50% !important; */
+  background-size: cover !important;
+  /* background-size: 100% 100%; */
+  position: relative;
+  aspect-ratio: 1.33333;
+}
+.map-background-small{
+  background: #c0c0c0 url("../../assets/pic/game-map-small.png");
+  height: 100vh;
+  width: 100vw;
+  background-position: 50% !important;
+  background-size: cover !important;
+  background-size: 100% 100%;
+}
+
+.map-rabbit-jumping{
+  height: 2%;
+  position: absolute;
+  top: 49%;
+  left: 67%;
+}
+.map-rabbit-jumping2{
+  height: 1%;
+  position: absolute;
+  top: 84%;
+  left: 41%;
+}
+.map-turtle-walking{
+  height: 4%;
+  position: absolute;
+  top: 23.5%;
+  left: 56%;
+  animation: walking-turtle 7.3s ease-in-out infinite;
+}
+@keyframes walking-turtle {
+  0%{
+      left: 56%;
+  }
+  40%, 50%{
+      left: 52%;
+      transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+    left: 56%
+  }
+}
+.map-turtle-dancing{
+  height: 2%;
+  position: absolute;
+  top: 38.5%;
+  left: 34.7%;
+}
+// .map-turtle-nft{
+//   height: 2%;
+//   position: absolute;
+//   top: 60.5%;
+//   left: 31.07%;
+// }
+
+@for $i from 1 through 4 {
+  .map-turtle-nft:nth-child(#{$i}) {
+    position: absolute;
+    height: 1.8%;
+    left: #{33.4%-$i*0.8};
+    top: #{$i*1.2+58.5%};
+    animation: slow-turtle #{$i*0.5+4}s linear infinite #{random(10)}s;
+    --left: -#{random(10) + 20}px;
+  }
+}
+@keyframes slow-turtle {
+  0%{
+    transform: translatex(0) scaleX(-1);
+  }
+  45% {
+    transform: translatex(var(--left)) scaleX(-1);
+  }
+  55%{
+    transform: translatex(var(--left)) scaleX(1);
+  }
+  90%{
+    transform: translatex(0) scaleX(1);
+  }
+} 
+.map-turtle-nft:nth-child(2){
+  animation: turtle-jump 8s linear infinite #{random(10)}s;;
+}
+@keyframes turtle-jump {
+  0%{
+    opacity: 0;
+    transform: translatex(0) scaleX(-1);}
+  5%{
+    opacity: 1;
+    transform: translatex(0) scaleX(-1);
+  }
+  30% {
+    transform: translatex(-23px) scaleX(-1);
+  }
+  40%{
+    transform: translatex(-23px) scaleX(1);
+  }
+  60%{
+    transform: translatex(0) scaleX(1);
+  }
+  70%{
+      transform: translate(15px, -2px);
+  }
+  80%{
+    transform: translate(30px, 0px) rotate(30deg);
+    opacity: 1;
+  }
+  90%{
+    transform: translate(37px, 7px) rotate(60deg);
+    opacity: 0;
+  }
+  100%{
+    opacity: 0;
+  }
+} 
+
+@for $i from 1 through 3 {
+  .map-rabbit-nft:nth-child(#{$i}) {
+    position: absolute;
+    height: 1.8%;
+    left: 39.4%;
+    top: #{$i*$i*0.4+59%};
+    animation: jumping-rabbit #{$i*0.1+0.5}s linear infinite #{random(10)}s;
+    animation-delay: #{$i}s;
+    --top: -#{random(3) + 2}px;
+  }
+}
+@keyframes jumping-rabbit{
+  30%, 70%{
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--top));
+  }
+} 
+
+.map-rabbit-nft2{
+  position: absolute;
+  height: 1.8%;
+  left: 39.4%;
+  top: 62%;
+  opacity: 1;
+  animation: jumping-rabbit2 2.5s linear infinite;
+}
+@keyframes jumping-rabbit2{
+  0%{
+    transform: translate(0,0);
+  }
+  10%{
+    transform: translate(0,-5px);
+  }
+  20%{
+    transform: translate(0,0);
+  }
+  30%{
+    transform: translate(0,-5px);
+  }
+  40%{
+    transform: translate(0,0);
+  }
+  50%{
+    transform: translate(-15px,-15px);
+  }
+  55%{
+    transform: translate(-22px,-15px);
+  }
+  60%{
+    transform: translate(-28px, -10px);
+  }
+  65% {
+    transform: translate(-33px, -5px);
+    opacity: 1;
+  }
+  66%{
+    opacity: 0;
+  }
+  80%{
+    opacity: 0;
+    transform: translate(0,0);
+  }
+  90%{
+    transform: translate(0,-5px);
+  }
+} 
+
+.map-smoke-many1{
+  height: 2%;
+  position: absolute;
+  top: 52.5%;
+  left: 54.07%;
+}
+.map-smoke-many2{
+  height: 2%;
+  position: absolute;
+  top: 54.4%;
+  left: 53.8%;
+}
+.map-smoke-many3{
+  height: 4%;
+  position: absolute;
+  top: 38.6%;
+  left: 29.4%;
+}
+.map-fire-smoke{
+  height: 4%;
+  position: absolute;
+  top: 38.6%;
+  left: 29.4%;
+}
+.map-dolphine1{
+  height: 3%;
+  position: absolute;
+  top: 34.6%;
+  left: 71.4%;
+}
+.map-dolphine2{
+  height: 2%;
+  position: absolute;
+  top: 84.2%;
+  left: 17.4%;
+  /* animation: jumping-dolphine 2.1s ease-in-out infinite; */
+}
+@keyframes jumping-dolphine {
+  0%,45%{
+      left: 14.4%;
+  }
+  55%, 100%{
+    left: 16%;
+  } 
+  33%, 50%{
+    left: 16%
+  }
+  67%, 100%{
+    left: 17.5%
+  } 
+}
+/* .map-fish1{
+  height: 3%;
+  position: absolute;
+  top: 60%;
+  left: 35.4%;
+} */
+.snowflake {
+  --size: 1vw;
+  width: var(--size);
+  height: var(--size);
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: -5vh;
+}
+
+@keyframes snowfall {
+  0% {
+    transform: translate3d(var(--left-ini), 0, 0);
+  }
+  100% {
+    transform: translate3d(var(--left-end), 960px, 0);
+  }
+}
+
+@for $i from 1 through 50 {
+  .snowflake:nth-child(#{$i}) {
+    --size: #{random(5) * 0.2}vw;
+    --left-ini: #{random(20) - 10}vw;
+    --left-end: #{random(20) - 10}vw;
+    left: #{random(1200)}px;
+    animation: snowfall #{random(10)+9}s linear infinite;
+    animation-delay: -#{random(10)}s;
+  }
+}
+
+/* added small blur every 6 snowflakes*/
+.snowflake:nth-child(6n) {
+  filter: blur(1px);
+}
