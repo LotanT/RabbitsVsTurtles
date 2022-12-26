@@ -1,12 +1,10 @@
 .map {
   background: #c0c0c0 url("../../assets/pic/game-map.png");
-  /* height: 100vh; */
   min-width: 1280px;
-  /* background-position: 50% !important; */
   background-size: cover !important;
-  /* background-size: 100% 100%; */
   position: relative;
   aspect-ratio: 1.33333;
+  overflow: hidden;
 }
 .map-background-small{
   background: #c0c0c0 url("../../assets/pic/game-map-small.png");
@@ -226,28 +224,39 @@
   position: absolute;
   top: 84.2%;
   left: 17.4%;
-  /* animation: jumping-dolphine 2.1s ease-in-out infinite; */
 }
-@keyframes jumping-dolphine {
-  0%,45%{
-      left: 14.4%;
-  }
-  55%, 100%{
-    left: 16%;
-  } 
-  33%, 50%{
-    left: 16%
-  }
-  67%, 100%{
-    left: 17.5%
-  } 
-}
-/* .map-fish1{
-  height: 3%;
+
+.map-bird{
+  height: 2%;
   position: absolute;
-  top: 60%;
-  left: 35.4%;
-} */
+  top: 30%;
+  left: 17.4%;
+}
+.map-bird2{
+  height: 7%;
+  position: absolute;
+  top: 92%;
+  left: 26.4%;
+  transform: scaleX(-1);
+}
+.map-circle-birds{
+  border-radius: 49%;
+  width: 51%;
+  aspect-ratio: 1.2;
+  position: absolute;
+  top: -10%;
+  left: -17%;
+  animation: circle 12s linear infinite
+}
+@keyframes circle {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(-180deg);
+  }
+}
+
 .snowflake {
   --size: 1vw;
   width: var(--size);
@@ -263,17 +272,17 @@
     transform: translate3d(var(--left-ini), 0, 0);
   }
   100% {
-    transform: translate3d(var(--left-end), 960px, 0);
+    transform: translate3d(var(--left-end), 1500px, 0);
   }
 }
 
-@for $i from 1 through 50 {
+@for $i from 1 through 100 {
   .snowflake:nth-child(#{$i}) {
     --size: #{random(5) * 0.2}vw;
     --left-ini: #{random(20) - 10}vw;
     --left-end: #{random(20) - 10}vw;
-    left: #{random(1200)}px;
-    animation: snowfall #{random(10)+9}s linear infinite;
+    left: #{random(100)-1%};
+    animation: snowfall #{random(10)+25}s linear infinite;
     animation-delay: -#{random(10)}s;
   }
 }

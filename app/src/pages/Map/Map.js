@@ -25,7 +25,7 @@ const Map = ({isAudio}) => {
   },[isAudio])
 
   const getSnow = ()=>{
-    const numOfSnow = 50;
+    const numOfSnow = 100;
     let snow = []
     for(let i=0; i< numOfSnow; i++){
         snow.push(<div className='snowflake'/>)
@@ -46,6 +46,8 @@ const Map = ({isAudio}) => {
        <div className='map-smoke-many3'><img alt='' src={require('../../assets/pic/gif-smoke-many.gif')}/></div>
        <div className='map-dolphine1'><img alt='' src={require('../../assets/pic/gif-dolphine-jump.gif')}/></div>
        <div className='map-dolphine2'><img alt='' src={require('../../assets/pic/gif-dolphine-small-jump.gif')}/></div>
+       <div className='map-bird'><img alt='' src={require('../../assets/pic/gif-eagle-flying.gif')}/></div>
+       <div className='map-circle-birds'><div className='map-bird2'><img alt='' src={require('../../assets/pic/gif-flying-birds.gif')}/></div></div>
       </div>
       <div className='map-rabbit-nft2'><img alt='' src={require('../../assets/pic/mint-rubbit.png')}/></div>
       <div>

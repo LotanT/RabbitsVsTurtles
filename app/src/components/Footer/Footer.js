@@ -20,6 +20,7 @@ import keyBtn from "../../assets/pic/key-shop-btn.png";
 import bookBtn from "../../assets/pic/book-shop-btn.png";
 import carrotBtn from "../../assets/pic/carrot-shop-btn.png";
 import armorBtn from "../../assets/pic/shield-shop-btn.png";
+import chatIcon from "../../assets/pic/chat-icon.png";
 import MyPlayers from "../MyPlayers/MyPlayers";
 import muteBtn from "../../assets/pic/sound-mute.png";
 import unmuteBtn from "../../assets/pic/sound-unmute.png";
@@ -132,7 +133,7 @@ const Footer = ({ isAudio, setIsAudio }) => {
         </div>
       </div>
       <div className="footer-chat-small" onClick={() => setIsChat(true)}>
-          <img alt="" src={isAudio ? unmuteBtn : muteBtn} />
+          <img alt="" src={chatIcon} />
         </div>
       {isNetwork && (
         <div className="outside-click" onClick={() => setIsNetwork(false)}>
