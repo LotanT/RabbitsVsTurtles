@@ -124,7 +124,7 @@ const Footer = ({ isAudio, setIsAudio }) => {
       </div>
       <div className="footer-side right">
         <div className="footer-chat" onClick={() => setIsChat(true)}>
-          <img alt="" src={isAudio ? unmuteBtn : muteBtn} />
+          <img alt="" src={require('../../assets/pic/chat-icon.png')} />
         </div>
         <div className="footer-network" onClick={() => setIsNetwork(true)}>
           <img alt="" src={goldFrame} />
@@ -132,7 +132,7 @@ const Footer = ({ isAudio, setIsAudio }) => {
         </div>
       </div>
       <div className="footer-chat-small" onClick={() => setIsChat(true)}>
-          <img alt="" src={isAudio ? unmuteBtn : muteBtn} />
+          <img alt="" src={require('../../assets/pic/chat-icon.png')} />
         </div>
       {isNetwork && (
         <div className="outside-click" onClick={() => setIsNetwork(false)}>

@@ -51,6 +51,7 @@
   transform: translate(-50%, -50%);
   left: 50%;
   font-family: "CuteFrog";
+  width: 70%;
 }
 
 .product-list {

@@ -61,7 +61,7 @@ const NetworksModal = ({ isDarkMode, closeFunc, top, height, right, width }) => 
         <div className="network-icon">
           <img alt="" src={etheriumIcon} />
         </div>
-        <div>Ethereum</div>
+        <div>Ethereum (coming soon)</div>
         <div className="network-active">
           {chainId === 1 && (
             <svg
@@ -105,7 +105,7 @@ const NetworksModal = ({ isDarkMode, closeFunc, top, height, right, width }) => 
         <div className="network-icon">
           <img alt="" src={optimismIcon} />
         </div>
-        <div>Optimism</div>
+        <div>Optimism (coming soon)</div>
         <div className="network-active">
           {chainId === 10 && (
             <svg
@@ -123,11 +123,11 @@ const NetworksModal = ({ isDarkMode, closeFunc, top, height, right, width }) => 
           )}
         </div>
       </div>
-      <div className="network-modal-name">
+      {/* <div className="network-modal-name">
         <div className="network-icon">
           <img alt="" src={arbitrumIcon} />
         </div>
-        <div>Arbitrum</div>
+        <div>Arbitrum (coming soon)</div>
         <div className="network-active">
           {chainId === 42161 && (
             <svg
@@ -149,7 +149,7 @@ const NetworksModal = ({ isDarkMode, closeFunc, top, height, right, width }) => 
         <div className="network-icon">
           <img alt="" src={celoIcon} />
         </div>
-        <div>Celo</div>
+        <div>Celo (coming soon)</div>
         <div className="network-active">
           {chainId === 0 && (
             <svg
@@ -166,7 +166,7 @@ const NetworksModal = ({ isDarkMode, closeFunc, top, height, right, width }) => 
             </svg>
           )}
         </div>
-      </div>
+      </div> */}
       <div className="network-modal-name" onClick={()=>changeNetwork(5)}>
         <div className="network-icon">
           <img alt="" src={gorliIcon} />
