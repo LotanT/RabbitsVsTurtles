@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.c2a67da2.css",
-    "main.js": "/static/js/main.b566da41.js",
+    "main.css": "/static/css/main.03acfe04.css",
+    "main.js": "/static/js/main.c9a973cc.js",
     "static/media/Adventure - Store.mp3": "/static/media/Adventure - Store.524b270a9d12e0846a6a.mp3",
     "static/media/game-map.png": "/static/media/game-map.4fb864312b3eabba0217.png",
     "static/media/Slayer-Overview.mp3": "/static/media/Slayer-Overview.c537163f635bf0dc74fb.mp3",
@@ -87,11 +87,11 @@
     "static/media/crown-silver-red.png": "/static/media/crown-silver-red.eb4f4eab83fc9e85041a.png",
     "static/media/wallet-btn.png": "/static/media/wallet-btn.233f3e94ce4ac6ac7b69.png",
     "index.html": "/index.html",
-    "main.c2a67da2.css.map": "/static/css/main.c2a67da2.css.map",
-    "main.b566da41.js.map": "/static/js/main.b566da41.js.map"
+    "main.03acfe04.css.map": "/static/css/main.03acfe04.css.map",
+    "main.c9a973cc.js.map": "/static/js/main.c9a973cc.js.map"
   },
   "entrypoints": [
-    "static/css/main.c2a67da2.css",
-    "static/js/main.b566da41.js"
+    "static/css/main.03acfe04.css",
+    "static/js/main.c9a973cc.js"
   ]
 }
